@@ -1,6 +1,6 @@
 {
   "name": "pmsys-common",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "description": "Common datatypes and functions for PMSYS.",
   "author": "Håvard Dagenborg Johansen <haavardj@dagenborg.net>",
   "license": "MIT",
