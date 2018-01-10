@@ -9,9 +9,9 @@ export interface IDataPoint<T> extends IDataPointShort {
 }
 
 export interface IDataPointQuery {
-    schema_namespace: string;
-    schema_name: string;
-    schema_version: string;
+    schema_namespace?: string;
+    schema_name?: string;
+    schema_version?: string;
     created_on_or_after?: Date;
     created_before?: Date;
     skip?: number;
