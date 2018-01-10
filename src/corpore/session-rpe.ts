@@ -1,16 +1,32 @@
-import * as omh from '../omh';
+
 import * as moment from 'moment';
 
 import { UUID } from 'angular2-uuid';
- 
 
-const SESSION_RPE_1_0_SCHEMA:omh.ISchemaID = new omh.SchemaID("corporesano", "srpe", "1.0");
+import { 
+    IDataPoint,
+    EndDateTimeInterval, 
+    TimeInterval, 
+    DurationUnitValue, 
+    isStartAndEndDateTimeInterval, 
+    isEndDateTimeInterval, 
+    isStartDateTimeInterval, 
+    isPartOfDayTimeInterval, 
+    durationUnitValueToSeconds,
+    ISchemaID,
+    SchemaID,
+    SchemaVersion,
+    IHeader, 
+    PMSYS_2_0_PROVENANCE
+} from '../omh';
 
-class PMSYSRPEHeader implements omh.IHeader {
+const SESSION_RPE_1_0_SCHEMA:ISchemaID = new SchemaID("corporesano", "srpe", new SchemaVersion(1,0));
+
+class PMSYSRPEHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
-    schema_id: omh.ISchemaID = SESSION_RPE_1_0_SCHEMA;
-    acuisition_provenance = omh.PMSYS_2_0_PROVENANCE;
+    schema_id: ISchemaID = SESSION_RPE_1_0_SCHEMA;
+    acuisition_provenance = PMSYS_2_0_PROVENANCE;
 
     constructor(public user_id: string) {};
 
@@ -18,7 +34,7 @@ class PMSYSRPEHeader implements omh.IHeader {
 
 export class EmptyEndDateTimeSessionRPE implements ISessionRPE {
     activity_names: string[] = [];
-    time_interval: omh.TimeInterval = new omh.EndDateTimeInterval(new Date(), new omh.DurationUnitValue(0, 'min'));
+    time_interval: TimeInterval = new EndDateTimeInterval(new Date(), new DurationUnitValue(0, 'min'));
     perceived_exertion: number = 0;
  }
 
@@ -29,18 +45,18 @@ export class EmptyEndDateTimeSessionRPE implements ISessionRPE {
  * 
  * If recorded time interval is part of day, an error will be returned.
  */
-export function computeSessionRPE(val: omh.IDataPoint<ISessionRPE>): number{    
+export function computeSessionRPE(val: IDataPoint<ISessionRPE>): number{    
     
     let ti  = val.body.time_interval;
 
-    if (omh.isStartDateTimeInterval(ti)){
-        return val.body.perceived_exertion * omh.durationUnitValueToSeconds(ti.duration) / 60;
-    } else if (omh.isEndDateTimeInterval(ti)){
-        return val.body.perceived_exertion * omh.durationUnitValueToSeconds(ti.duration) / 60;  
-    } else if (omh.isStartAndEndDateTimeInterval(ti)){
+    if (isStartDateTimeInterval(ti)){
+        return val.body.perceived_exertion * durationUnitValueToSeconds(ti.duration) / 60;
+    } else if (isEndDateTimeInterval(ti)){
+        return val.body.perceived_exertion * durationUnitValueToSeconds(ti.duration) / 60;  
+    } else if (isStartAndEndDateTimeInterval(ti)){
         let m = moment(ti.end_date_time);
         return val.body.perceived_exertion * m.diff(moment(ti.start_date_time), 'seconds', true) / 60; // true = floating point                
-    } else if (omh.isPartOfDayTimeInterval(ti)){
+    } else if (isPartOfDayTimeInterval(ti)){
         throw "Part-of-Day time intervals are not supported for session RPE computations";         
     } else{
         throw "Not supported time interval type";                
@@ -50,18 +66,18 @@ export function computeSessionRPE(val: omh.IDataPoint<ISessionRPE>): number{
 
 export interface ISessionRPE{    
     activity_names: string[];
-    time_interval: omh.TimeInterval;
+    time_interval: TimeInterval;
     perceived_exertion: number;
 }
 
 
 export class SessionRPE implements ISessionRPE{
-    constructor(public activity_names:string[], public time_interval:omh.TimeInterval, public perceived_exertion: number) {};
+    constructor(public activity_names:string[], public time_interval:TimeInterval, public perceived_exertion: number) {};
 
     static fromBasicValues( activity_names:string[], end_date_time:Date, durationInMinutes: number, perceived_exertion:number  ) : SessionRPE {
         return new SessionRPE(
             activity_names,
-            new omh.EndDateTimeInterval(end_date_time, new omh.DurationUnitValue(durationInMinutes, 'min')),
+            new EndDateTimeInterval(end_date_time, new DurationUnitValue(durationInMinutes, 'min')),
             perceived_exertion)
     }
 }
@@ -75,9 +91,9 @@ export function isSessionRPE(t:any): t is ISessionRPE{
 }
 
 
-export class SessionRPEDataPoint implements omh.IDataPoint<ISessionRPE> {    
+export class SessionRPEDataPoint implements IDataPoint<ISessionRPE> {    
     
-    header:omh.IHeader;
+    header:IHeader;
     body: ISessionRPE;
         
     constructor(user_id: string, body: ISessionRPE) {
