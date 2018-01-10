@@ -1,6 +1,6 @@
 import { IDurationUnitValue, DurationUnitValue, ITimeFrame } from '../omh';
 import { EmptyTimeFrame, CurrentDateTimeFrame, DateTimeFrame } from '../omh';
-import { ISchemaID, SchemaID } from '../omh';
+import { ISchemaID, SchemaID, SchemaVersion } from '../omh';
 import { IHeader, PMSYS_2_0_PROVENANCE } from '../omh';
 import { IDataPoint} from '../omh';
 import { UUID } from 'angular2-uuid';
@@ -25,7 +25,7 @@ export class Sleep implements ISleep {
     }
 }
 
-export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', '1.0');
+export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1,0));
 
 
 export interface IWellness{
