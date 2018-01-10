@@ -21,7 +21,7 @@ export const PMSYS_2_0_PROVENANCE = new AcquisitionProvenance(
     
 
 export interface IHeader {
-    id?: string;
+    id: string;
     creation_date_time: Date;
     schema_id: ISchemaID;
     acuisition_provenance?: IAcquisitionProvenance;
