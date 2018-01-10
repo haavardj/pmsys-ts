@@ -184,7 +184,7 @@ export class UserStatistics  {
         /* Make sure input array is sorted */
         this.wellnessData.sort((a:IDataPoint<IWellness>, b:IDataPoint<IWellness>) => 
             dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
-        Date
+        
         this.latestReport['wellness'] =  this.wellnessData[this.wellnessData.length - 1].body.effective_time_frame.date_time;
         
         for (let val of this.wellnessData){
