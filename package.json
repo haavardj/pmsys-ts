@@ -42,6 +42,6 @@
     "angular2-uuid": "^1.1.1",
     "browserify": "latest",
     "lodash": "^4.17.4",
-    "moment": "latest"
+    "moment": "^2.20.1"
   }
 }
