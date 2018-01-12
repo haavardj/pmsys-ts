@@ -231,7 +231,7 @@ export class UserStatistics  {
                 (b.body.time_interval as IEndDateTimeInterval).end_date_time));
         
         for (let val of  this.srpeData) {
-            let onDay = (val.body.time_interval as IEndDateTimeInterval).end_date_time;
+            let onDay = moment((val.body.time_interval as IEndDateTimeInterval).end_date_time).toDate();
             
             /* Truncate date */
             onDay.setHours(0, 0, 0, 0);
