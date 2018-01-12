@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/haavardj/pmsys-ts/compare/v0.1.0...v0.1.1) (2018-01-12)
+
+
+### Bug Fixes
+
+* **packaging:** add missing moment package ([0116c13](https://github.com/haavardj/pmsys-ts/commit/0116c13))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/haavardj/pmsys-ts/compare/v0.0.0...v0.1.0) (2018-01-10)
 
