@@ -73,18 +73,23 @@ export interface IPartOfDayTimeInterval{
 export type TimeInterval = IEndDateTimeInterval | IStartDateTimeInterval | IStartAndEndDateTimeInterval | IPartOfDayTimeInterval;
 
 export function isEndDateTimeInterval(t: TimeInterval): t is IEndDateTimeInterval {
+    if (t ==null) return null;
+
     return (<IEndDateTimeInterval>t).end_date_time !== undefined && (<IEndDateTimeInterval>t).duration !== undefined; 
 }
 
 export function isStartDateTimeInterval(t: TimeInterval): t is IStartDateTimeInterval {
+    if (t ==null) return null;
     return (<IStartDateTimeInterval>t).start_date_time !== undefined && (<IStartDateTimeInterval>t).duration !== undefined; 
 }
 
 export function isStartAndEndDateTimeInterval(t: TimeInterval): t is IStartAndEndDateTimeInterval {
+    if (t ==null) return null;
     return (<IStartAndEndDateTimeInterval>t).start_date_time !== undefined && (<IStartAndEndDateTimeInterval>t).end_date_time !== undefined; 
 }
 
 export function isPartOfDayTimeInterval(t: TimeInterval): t is IPartOfDayTimeInterval {
+    if (t ==null) return null;
     return (<IPartOfDayTimeInterval>t).part_of_day !== undefined; 
 }    
 
