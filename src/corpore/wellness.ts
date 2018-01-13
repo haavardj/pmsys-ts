@@ -1,8 +1,17 @@
-import { IDurationUnitValue, DurationUnitValue, ITimeFrame } from '../omh';
-import { EmptyTimeFrame, CurrentDateTimeFrame, DateTimeFrame } from '../omh';
-import { ISchemaID, SchemaID, SchemaVersion } from '../omh';
-import { IHeader, PMSYS_2_0_PROVENANCE } from '../omh';
-import { IDataPoint} from '../omh';
+import { 
+    IDurationUnitValue, 
+    DurationUnitValue, 
+    ITimeFrame, 
+    EmptyTimeFrame, 
+    CurrentDateTimeFrame, 
+    DateTimeFrame, 
+    ISchemaID, 
+    SchemaID, 
+    SchemaVersion,
+    IHeader, 
+    PMSYS_2_0_PROVENANCE, 
+    IDataPoint } from '../omh/index';
+
 import { UUID } from 'angular2-uuid';
 
 import * as moment from 'moment';

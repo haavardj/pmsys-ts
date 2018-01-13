@@ -1,4 +1,3 @@
-
 import * as moment from 'moment';
 
 import { UUID } from 'angular2-uuid';
@@ -18,7 +17,7 @@ import {
     SchemaVersion,
     IHeader, 
     PMSYS_2_0_PROVENANCE
-} from '../omh';
+} from '../omh/index';
 
 const SESSION_RPE_1_0_SCHEMA:ISchemaID = new SchemaID("corporesano", "srpe", new SchemaVersion(1,0));
 
