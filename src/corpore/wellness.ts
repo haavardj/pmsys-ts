@@ -43,6 +43,7 @@ export interface IWellness{
     fatigue: number;
     sleep: ISleep;
     soreness: number;
+    soreness_area: number[];
     stress: number;
     mood: number;    
 }
@@ -54,6 +55,7 @@ export class Wellness implements IWellness{
         public fatigue:number, 
         public sleep: ISleep,
         public soreness: number,
+        public soreness_area: number[],
         public stress: number,
         public mood: number) {};
 
@@ -65,6 +67,7 @@ export class Wellness implements IWellness{
             sleepQuality: number, 
             sleepMinutes:number, 
             soreness: number,
+            soreness_area: number[],
             stress: number,
             mood: number): Wellness {
 
@@ -73,7 +76,7 @@ export class Wellness implements IWellness{
                     readiness, 
                     fatigue, 
                     Sleep.fromBasicValues(sleepMinutes, sleepQuality),
-                    soreness, stress, mood );
+                    soreness, soreness_area, stress, mood );
             }
 }
 
@@ -87,6 +90,7 @@ export function isWellness(t:any): t is IWellness{
     if (i.fatigue === undefined) return false;
     if (i.sleep === undefined) return false;
     if (i.soreness === undefined) return false;
+    if (i.soreness_area === undefined) return false;
     if (i.stress === undefined) return false;
     if (i.mood === undefined) return false;    
     return true;    
