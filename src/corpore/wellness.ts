@@ -12,8 +12,9 @@ import {
     PMSYS_2_0_PROVENANCE, 
     IDataPoint } from '../omh';
 
-import moment from 'moment';
+import { UUID } from 'angular2-uuid';    
 
+import moment from 'moment';
 
 export interface ISleep{
    duration: IDurationUnitValue;
