@@ -89,7 +89,8 @@ gulp.task('rollup:fesm', function () {
       // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
-        '@angular/common'
+        '@angular/common',
+        'moment-timezone'
       ],
 
       // Format of generated bundle
@@ -122,7 +123,8 @@ gulp.task('rollup:umd', function () {
       // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
-        '@angular/common'
+        '@angular/common',
+        'moment-timezone'
       ],
 
       // Format of generated bundle
@@ -190,7 +192,7 @@ gulp.task('clean:build', function () {
 
 gulp.task('compile:ngc', function (callback) {
  runSequence(
-    'clean:dist',
+    //'clean:dist',
     'copy:source',
     'inline-resources',
     'ngc',
@@ -228,7 +230,9 @@ gulp.task('watch', function () {
 
 gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
 
-gulp.task('build', function(callback) { runSequence('clean', 'compile', callback);} );
+gulp.task('build', function(callback) { runSequence('clean', 'compile:ts', callback);} );
+gulp.task('build:only', function(callback) { runSequence('compile:ts', callback);} );
+
 gulp.task('build:watch', function(callback) {runSequence('build', 'watch', callback)} );
 gulp.task('default', ['build:watch']);
 

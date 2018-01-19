@@ -1,2 +1,2 @@
-export * from './corpore/index';
-export * from './omh/index';
+export * from './corpore';
+export * from './omh';

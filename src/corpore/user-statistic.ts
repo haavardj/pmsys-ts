@@ -1,11 +1,11 @@
-import { IDataPoint, IEndDateTimeInterval, durationUnitValueToSeconds } from '../omh/index'; 
+import { IDataPoint, IEndDateTimeInterval, durationUnitValueToSeconds } from '../omh'; 
 import { IProfile } from './profile'
 import { IWellness, isWellness } from './wellness';
 import { ISessionRPE, isSessionRPE } from './session-rpe';
 
 import { computeSessionRPE } from './session-rpe';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import * as _ from 'lodash';
 
 declare let jStat: any;
