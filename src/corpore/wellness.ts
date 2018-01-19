@@ -10,11 +10,10 @@ import {
     SchemaVersion,
     IHeader, 
     PMSYS_2_0_PROVENANCE, 
-    IDataPoint } from '../omh/index';
+    IDataPoint } from '../omh';
 
-import { UUID } from 'angular2-uuid';
+import moment from 'moment';
 
-import * as moment from 'moment';
 
 export interface ISleep{
    duration: IDurationUnitValue;
@@ -35,7 +34,29 @@ export class Sleep implements ISleep {
 }
 
 export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1,0));
+export const WELLNESS_1_1_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1,1));
 
+
+export interface IWellness_1_0{
+    effective_time_frame: ITimeFrame;
+    readiness: number;
+    fatigue: number;
+    sleep: ISleep;
+    soreness: number;
+    stress: number;
+    mood: number;    
+}
+
+export interface IWellness_1_1{
+    effective_time_frame: ITimeFrame;
+    readiness: number;
+    fatigue: number;
+    sleep: ISleep;
+    soreness: number;
+    soreness_area: number[];
+    stress: number;
+    mood: number;    
+}
 
 export interface IWellness{
     effective_time_frame: ITimeFrame;
@@ -80,9 +101,6 @@ export class Wellness implements IWellness{
             }
 }
 
-
-
-
 export function isWellness(t:any): t is IWellness{
     let i = t as IWellness;
     if (i.effective_time_frame === undefined) return false;
@@ -90,7 +108,6 @@ export function isWellness(t:any): t is IWellness{
     if (i.fatigue === undefined) return false;
     if (i.sleep === undefined) return false;
     if (i.soreness === undefined) return false;
-    if (i.soreness_area === undefined) return false;
     if (i.stress === undefined) return false;
     if (i.mood === undefined) return false;    
     return true;    
