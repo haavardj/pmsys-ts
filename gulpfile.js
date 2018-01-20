@@ -160,6 +160,13 @@ gulp.task('copy:build', function () {
     .pipe(gulp.dest(distFolder));
 });
 
+gulp.task('copy:buildjs', function () {
+  return gulp.src([`${buildFolder}/**/*.js`])
+    .pipe(gulp.dest(distFolder));
+});
+
+
+
 /**
  * 8. Copy package.json from /src to /dist
  */
@@ -190,9 +197,9 @@ gulp.task('clean:build', function () {
   return del([buildFolder]);
 });
 
-gulp.task('compile:ngc', function (callback) {
+gulp.task('compile', function (callback) {
  runSequence(
-    //'clean:dist',
+    'clean:dist',
     'copy:source',
     'inline-resources',
     'ngc',
@@ -201,24 +208,38 @@ gulp.task('compile:ngc', function (callback) {
     'copy:build',
     'copy:manifest',
     'copy:readme',
-    //'clean:build',
-    //'clean:tmp',
+    'clean:build',
+    'clean:tmp',
   callback  
   );
 });
 
-gulp.task('compile:ts', function() {
+gulp.task('ts', function() {
   const merge = require('merge2');
-  const tsProject = ts.createProject('tsconfig.json');
+  const tsProject = ts.createProject('./src/tsconfig.es5.json');
 
   var tsResult = tsProject.src()
       .pipe(tsProject());
 
   return merge([
-      tsResult.dts.pipe(gulp.dest('./dist')),
-      tsResult.js.pipe(gulp.dest(tsProject.config.compilerOptions.outDir))
+      tsResult.dts.pipe(gulp.dest('./build')),
+      tsResult.js.pipe(gulp.dest('./build'))
   ]);
 });
+
+gulp.task('compile:ts', function (callback) {
+ runSequence(
+    'clean:dist',
+    'ts',
+    'copy:build',
+    'copy:buildjs',
+    'copy:manifest',
+    'copy:readme',
+    'clean:build',
+  callback
+  );
+});
+
 
 
 /**
@@ -230,7 +251,9 @@ gulp.task('watch', function () {
 
 gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
 
-gulp.task('build', function(callback) { runSequence('clean', 'compile:ts', callback);} );
+gulp.task('build', function(callback) { runSequence('clean', 'compile', callback);} );
+gulp.task('build:ts', function(callback) { runSequence('clean', 'compile:ts', callback);} );
+
 gulp.task('build:only', function(callback) { runSequence('compile:ts', callback);} );
 
 gulp.task('build:watch', function(callback) {runSequence('build', 'watch', callback)} );
