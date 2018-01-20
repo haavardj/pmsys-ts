@@ -72,12 +72,19 @@ export class UserStatistics  {
     /* Indicates that a recompute is needed */
     private _dirty: boolean = false;
        
+    public getLatest(name: string): Date {
+
+        return this.latestReport[name];
+    }
+
     /*
      * Adds raw OMH datapoints to this user. 
      * 
      * recompute() must be called after new datapoints are inserted.
      */
     public addDataPoint(value: IDataPoint<any>) {
+
+        if (value == null) return;
 
         if (isSessionRPE(value.body)) {
             this._dirty = true;
