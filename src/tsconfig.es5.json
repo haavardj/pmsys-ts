@@ -6,10 +6,11 @@
     "target": "es5",
     "baseUrl": ".",
     "stripInternal": true,
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "outDir": "../build",
+    "outDir": "./build",
     "rootDir": ".",
     "lib": [
       "es2015",
@@ -24,8 +25,5 @@
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "pmsys.js",
     "flatModuleId": "pmsys"
-  },
-  "files": [
-    "./index.ts"
-  ]
+  }
 }
