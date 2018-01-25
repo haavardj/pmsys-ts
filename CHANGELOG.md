@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/haavardj/pmsys-ts/compare/v0.3.0...v0.3.1) (2018-01-25)
+
+
+### Bug Fixes
+
+* change Profile.id to Profile.sub to match TSU API ([fc4c73c](https://github.com/haavardj/pmsys-ts/commit/fc4c73c))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/haavardj/pmsys-ts/compare/v0.2.0...v0.3.0) (2018-01-20)
 
