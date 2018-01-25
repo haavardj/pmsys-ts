@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/haavardj/pmsys-ts/compare/v0.3.1...v0.3.2) (2018-01-25)
+
+
+### Bug Fixes
+
+* changed Profile.sub back to Profile.id to match db naming scheme. ([50896e6](https://github.com/haavardj/pmsys-ts/commit/50896e6))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/haavardj/pmsys-ts/compare/v0.3.0...v0.3.1) (2018-01-25)
 
