@@ -1,5 +1,4 @@
 import { IDataPoint, IEndDateTimeInterval, durationUnitValueToSeconds } from '../omh'; 
-import { IProfile } from './profile'
 import { IWellness, isWellness } from './wellness';
 import { ISessionRPE, isSessionRPE } from './session-rpe';
 
