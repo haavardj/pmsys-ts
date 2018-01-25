@@ -1,7 +1,7 @@
 // Profile holds personal user information
 
 export interface IProfile {
-    sub:string;
+    id:string;
     given_name: string;
     family_name: string;
     nick_name: string;
@@ -22,5 +22,5 @@ export class EmptyProfile implements IProfile {
     picture: "";
     email: "";
 
-    constructor(public sub: string) {}
+    constructor(public id: string) {}
 }
