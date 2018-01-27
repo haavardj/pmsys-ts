@@ -107,7 +107,7 @@ export class UserStatistics  {
     public recompute() {
         
         if (!this._dirty) { return; }
-        
+
         this.computeWellnessData();
         this.computeSessionRPEData();
         this.computeScores();
@@ -182,12 +182,12 @@ export class UserStatistics  {
     private computeWellnessData(): void {        
 
         /* Skip if no data */
-        if (this.wellnessData.length === 0) {
+        if (this.wellnessData.length == 0) {
             return;
         }
-                
+
         /* Make sure input array is sorted */
-        this.wellnessData.sort((a:IDataPoint<IWellness>, b:IDataPoint<IWellness>) => 
+        this.wellnessData = this.wellnessData.sort((a:IDataPoint<IWellness>, b:IDataPoint<IWellness>) => 
             dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
         
         this.latestReport['wellness'] =  this.wellnessData[this.wellnessData.length - 1].body.effective_time_frame.date_time;
@@ -228,22 +228,30 @@ export class UserStatistics  {
      */
     private computeSessionRPEData(): void {
 
+        /* Skip if no data */
+        if (this.srpeData.length == 0) {
+                return;
+        }
+
         let idata:number[] = [];
         
         /* Make sure input array is sorted */
-        this.srpeData.sort(
+        this.srpeData = this.srpeData.sort(
                 (a:IDataPoint<ISessionRPE>, b:IDataPoint<ISessionRPE>) => dateCmp((a.body.time_interval as IEndDateTimeInterval).end_date_time, 
                 (b.body.time_interval as IEndDateTimeInterval).end_date_time));
-        
+
+        this.latestReport['srpe'] =  (this.srpeData[this.srpeData.length -1].body.time_interval as IEndDateTimeInterval).end_date_time;
+
+
         for (let val of  this.srpeData) {
-            let onDay = moment((val.body.time_interval as IEndDateTimeInterval).end_date_time).toDate();
-            
+
+            let onDay = new Date((val.body.time_interval as IEndDateTimeInterval).end_date_time);
+
+
             /* Truncate date */
             onDay.setHours(0, 0, 0, 0);
-            
-            let lastItem = this.srpeXData.length-1;
 
-            this.latestReport['srpe'] = this.latestReport['srpe'] > onDay ? this.latestReport['srpe']: onDay;
+            let lastItem = this.srpeXData.length-1;
 
             /* Check if multiple entries per day */
             if (this.srpeXData[lastItem] && this.srpeXData[lastItem].getTime() === onDay.getTime()) {
