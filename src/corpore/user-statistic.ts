@@ -64,6 +64,9 @@ export class UserStatistics  {
     /* Latest seen datapoints for different datatypes */
     public latestReport: { [key:string]: Date} = {};
 
+    /* Earliest seen datapoints for different datatypes */
+    public earliestReport: { [key:string]: Date} = {};
+
     /* storeas raw datapoints */
     public srpeData: IDataPoint<ISessionRPE>[] = [];
     public wellnessData: IDataPoint<IWellness>[] = [];
@@ -189,9 +192,9 @@ export class UserStatistics  {
         /* Make sure input array is sorted */
         this.wellnessData = this.wellnessData.sort((a:IDataPoint<IWellness>, b:IDataPoint<IWellness>) => 
             dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
-        
+
         this.latestReport['wellness'] =  this.wellnessData[this.wellnessData.length - 1].body.effective_time_frame.date_time;
-        
+        this.earliestReport['wellness'] = this.wellnessData[0].body.effective_time_frame.date_time;
         for (let val of this.wellnessData){
             
             let onDay = val.body.effective_time_frame.date_time;
@@ -241,7 +244,9 @@ export class UserStatistics  {
                 (b.body.time_interval as IEndDateTimeInterval).end_date_time));
 
         this.latestReport['srpe'] =  (this.srpeData[this.srpeData.length -1].body.time_interval as IEndDateTimeInterval).end_date_time;
-
+        // this.latestReport['srpe'] = this.latestReport['srpe'] > onDay ? this.latestReport['srpe']: onDay;
+        // this.earliestReport['srpe'] = this.earliestReport['srpe'] < onDay ? this.earliestReport['srpe']: onDay;
+        this.earliestReport['srpe'] = (this.srpeData[0].body.time_interval as IEndDateTimeInterval).end_date_time;
 
         for (let val of  this.srpeData) {
 
