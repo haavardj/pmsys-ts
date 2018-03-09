@@ -26,5 +26,4 @@ export interface IHeader {
     schema_id: ISchemaID;
     acuisition_provenance?: IAcquisitionProvenance;
     user_id: string;
-	additional_properties: any;
 }
