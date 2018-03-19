@@ -6,6 +6,7 @@ import { computeSessionRPE } from './session-rpe';
 
 import moment from 'moment';
 import * as _ from 'lodash';
+import {IParticipation, isParticipation} from './participation';
 
 declare let jStat: any;
 
@@ -61,6 +62,10 @@ export class UserStatistics  {
 
     public currentTrendScore: number = null;
 
+    public participateX: Date[] = [];
+    public participateGoing: string[] = [];
+    public participateComment: string[] = [];
+
     /* Latest seen datapoints for different datatypes */
     public latestReport: { [key:string]: Date} = {};
 
@@ -70,6 +75,7 @@ export class UserStatistics  {
     /* storeas raw datapoints */
     public srpeData: IDataPoint<ISessionRPE>[] = [];
     public wellnessData: IDataPoint<IWellness>[] = [];
+    public participationData: IDataPoint<IParticipation>[] = [];
     
     /* Indicates that a recompute is needed */
     private _dirty: boolean = false;
@@ -94,6 +100,9 @@ export class UserStatistics  {
         } else if (isWellness(value.body)) {  
             this._dirty = true;
             this.wellnessData.push(value);
+        } else if (isParticipation(value.body)) {
+            this._dirty = true;
+            this.participationData.push(value);
         } else {
             throw'Unknown user datatype';
         } 
@@ -114,7 +123,8 @@ export class UserStatistics  {
         this.computeWellnessData();
         this.computeSessionRPEData();
         this.computeScores();
-        
+        this.computeParticipationData();
+
         this._dirty = false;
     }
     
@@ -225,7 +235,30 @@ export class UserStatistics  {
             this.stress.push(val.body.stress);            
         }                       
     }
-    
+
+    private computeParticipationData(): void {
+
+        /* Skip if no data */
+        if (this.participationData.length === 0) {
+            return;
+        }
+
+        /* Make sure input array is sorted */
+        this.participationData = this.participationData.sort((a:IDataPoint<IParticipation>, b:IDataPoint<IParticipation>) =>
+            dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
+
+        this.latestReport['participation'] =  this.participationData[this.participationData.length - 1].body.effective_time_frame.date_time;
+        this.earliestReport['participation'] = this.participationData[0].body.effective_time_frame.date_time;
+        for (let val of this.participationData){
+
+            let onDay = val.body.effective_time_frame.date_time;
+
+            this.participateX.push(onDay);
+            this.participateGoing.push(val.body.going);
+            this.participateComment.push(val.body.comment);
+        }
+    }
+
     /*
      * Update Session RPE data from set datapoints.
      */
