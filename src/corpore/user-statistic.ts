@@ -209,30 +209,42 @@ export class UserStatistics  {
             
             let onDay = val.body.effective_time_frame.date_time;
             
-            /* Truncate date ? */
-            //onDay.setHours(0, 0, 0, 0);
-                                  
             /* mood */
             let lastItem = this.moodX.length-1;
     
-            this.moodX.push(onDay);
-            this.mood.push(val.body.mood);
+            if (val.body.mood >= 1 && val.body.mood <= 5) {
+                this.moodX.push(onDay);
+                this.mood.push(val.body.mood);
+            }
 
-            this.fatigueX.push(onDay);
-            this.fatigue.push(val.body.fatigue);
+            if (val.body.fatigue >=1 && val.body.fatigue <= 5) {
+                this.fatigueX.push(onDay);
+                this.fatigue.push(val.body.fatigue);
+            }
 
-            this.readinessX.push(onDay);
-            this.readiness.push(val.body.readiness);
+            if (val.body.readiness >= 0 && val.body.readiness <= 10) {
+                this.readinessX.push(onDay);
+                this.readiness.push(val.body.readiness);
+            }
             
-            this.sleepX.push(onDay);
-            this.sleepDuration.push(durationUnitValueToSeconds(val.body.sleep.duration));
-            this.sleepQuality.push(val.body.sleep.quality);
+            if (durationUnitValueToSeconds(val.body.sleep.duration) >= 0) {
+                this.sleepX.push(onDay);
+                this.sleepDuration.push(durationUnitValueToSeconds(val.body.sleep.duration));
+
+                if (val.body.sleep.quality >= 1 && val.body.sleep.quality <= 5) {
+                    this.sleepQuality.push(val.body.sleep.quality);
+                }
+            }
             
-            this.sorenessX.push(onDay);
-            this.soreness.push(val.body.soreness);
+            if (val.body.soreness >= 1 && val.body.soreness <= 5) {
+                this.sorenessX.push(onDay);
+                this.soreness.push(val.body.soreness);
+            }
             
-            this.stressX.push(onDay);
-            this.stress.push(val.body.stress);            
+            if (val.body.stress >= 1 && val.body.stress <= 5) {
+                this.stressX.push(onDay);
+                this.stress.push(val.body.stress);
+            }
         }                       
     }
 
@@ -285,25 +297,12 @@ export class UserStatistics  {
 
             let onDay = new Date((val.body.time_interval as IEndDateTimeInterval).end_date_time);
 
-
-            /* Truncate date */
-            onDay.setHours(0, 0, 0, 0);
-
             let lastItem = this.srpeXData.length-1;
 
-            /* Check if multiple entries per day */
-            if (this.srpeXData[lastItem] && this.srpeXData[lastItem].getTime() === onDay.getTime()) {
-
-                // If multiple reports for one day, compute average 
-                this.srpeYData[lastItem] = (this.srpeYData[lastItem] * idata[lastItem] + computeSessionRPE(val) ) / (idata[lastItem] + 1);
-                this.exertion[lastItem] = (this.exertion[lastItem] * idata[lastItem] + val.body.perceived_exertion ) / (idata[lastItem] + 1); 
-                idata[lastItem] += 1;
-            } else {
-                this.srpeXData.push(onDay);
-                this.srpeYData.push( computeSessionRPE(val) );
-                this.exertion.push( val.body.perceived_exertion );
-                idata.push(1);                
-            }                       
+            this.srpeXData.push(onDay);
+            this.srpeYData.push( computeSessionRPE(val) );
+            this.exertion.push( val.body.perceived_exertion );
+            idata.push(1);
         }        
     }            
 }
