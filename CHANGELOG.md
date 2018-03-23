@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/haavardj/pmsys-ts/compare/v0.4.0...v0.4.1) (2018-03-23)
+
+
+### Bug Fixes
+
+* Only add wellness points within normal range. ([a9b7e7a](https://github.com/haavardj/pmsys-ts/commit/a9b7e7a))
+* Remove truncation and averaging of RPE Data. ([67204cc](https://github.com/haavardj/pmsys-ts/commit/67204cc))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/haavardj/pmsys-ts/compare/v0.3.6...v0.4.0) (2018-03-19)
 
