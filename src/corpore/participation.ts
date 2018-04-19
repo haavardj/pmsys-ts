@@ -15,7 +15,7 @@ import {
 
 const PARTICIPATION_1_0_SCHEMA:ISchemaID = new SchemaID("corporesano", "participation", new SchemaVersion(1,0));
 
-class PMSYSRPEHeader implements IHeader {
+class PMSYSParticipationHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
     schema_id: ISchemaID = PARTICIPATION_1_0_SCHEMA;

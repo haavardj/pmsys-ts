@@ -7,6 +7,7 @@ import { computeSessionRPE } from './session-rpe';
 import moment from 'moment';
 import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
+import {IInjury, isInjury} from './injury';
 
 declare let jStat: any;
 
@@ -66,6 +67,8 @@ export class UserStatistics  {
     public participateGoing: string[] = [];
     public participateComment: string[] = [];
 
+    public lastInjury: IInjury;
+
     /* Latest seen datapoints for different datatypes */
     public latestReport: { [key:string]: Date} = {};
 
@@ -76,7 +79,8 @@ export class UserStatistics  {
     public srpeData: IDataPoint<ISessionRPE>[] = [];
     public wellnessData: IDataPoint<IWellness>[] = [];
     public participationData: IDataPoint<IParticipation>[] = [];
-    
+    public injuryData: IDataPoint<IInjury>[] = [];
+
     /* Indicates that a recompute is needed */
     private _dirty: boolean = false;
        
@@ -103,6 +107,9 @@ export class UserStatistics  {
         } else if (isParticipation(value.body)) {
             this._dirty = true;
             this.participationData.push(value);
+        } else if (isInjury(value.body)) {
+            this._dirty = true;
+            this.injuryData.push(value);
         } else {
             throw'Unknown user datatype';
         } 
@@ -124,6 +131,7 @@ export class UserStatistics  {
         this.computeSessionRPEData();
         this.computeScores();
         this.computeParticipationData();
+        this.computeInjuryData();
 
         this._dirty = false;
     }
@@ -269,6 +277,29 @@ export class UserStatistics  {
             this.participateGoing.push(val.body.going);
             this.participateComment.push(val.body.comment);
         }
+    }
+
+    private computeInjuryData(): void {
+
+        /* Skip if no data */
+        if (this.injuryData.length === 0) {
+            return;
+        }
+
+        /* Make sure input array is sorted */
+        this.injuryData = this.injuryData.sort((a:IDataPoint<IInjury>, b:IDataPoint<IInjury>) =>
+            dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
+
+        let last = this.injuryData.length - 1;
+
+        if (last < 0) {
+            return;
+        }
+
+        this.latestReport['injury'] = this.injuryData[last].body.effective_time_frame.date_time;
+        this.earliestReport['injury'] = this.injuryData[0].body.effective_time_frame.date_time;
+
+        this.lastInjury = this.injuryData[last].body;
     }
 
     /*
