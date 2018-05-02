@@ -1,6 +1,6 @@
 {
   "name": "pmsys",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Common datatypes and functions for PMSYS.",
   "author": {
     "name": "Håvard Dagenborg Johansen",
