@@ -14,7 +14,10 @@ import {
 
 import { UUID } from 'angular2-uuid';    
 
-import moment from 'moment';
+
+import * as moment_ from 'moment';
+const moment = moment_;
+
 
 export interface ISleep{
    duration: IDurationUnitValue;

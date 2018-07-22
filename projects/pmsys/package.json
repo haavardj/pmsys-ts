@@ -1,6 +1,7 @@
 {
   "name": "pmsys",
-  "version": "0.5.0",
+  "version": "0.6.0",
+
   "repository": {
     "type": "git",
     "url": "https://github.com/haavardj/pmsys-ts.git"
@@ -9,6 +10,7 @@
     "name": "Håvard Dagenborg Johansen",
     "email": "haavardj@dagenborg.net"
   },
+
   "keywords": [
     "Open mHealth",
     "omh",
@@ -18,13 +20,14 @@
   "bugs": {
     "url": "https://github.com/haavardj/pmsys-ts.git/issues"
   },
-  "main": "index.js",
-  "typings": "index.d.ts",
+
   "peerDependencies": {
-    "lodash": "^4.17.4",
-    "moment": "^2.20.1",
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "moment": "2.22.2",
+    "moment-timezone": "^0.5.21",
     "@types/moment-timezone": "^0.5.3",
-    "moment-timezone": "^0.5.14",
+    "lodash": "^4.17.4",
     "angular2-uuid": "^1.1.1"
   }
 }

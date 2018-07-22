@@ -1,4 +1,7 @@
-import moment from 'moment';
+
+
+import * as moment_ from 'moment';
+const moment = moment_;
 
 import { UUID } from 'angular2-uuid';
 

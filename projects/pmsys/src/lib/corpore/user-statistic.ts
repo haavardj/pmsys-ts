@@ -4,7 +4,9 @@ import { ISessionRPE, isSessionRPE } from './session-rpe';
 
 import { computeSessionRPE } from './session-rpe';
 
-import moment from 'moment';
+import * as moment_ from 'moment';
+const moment = moment_;
+
 import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';

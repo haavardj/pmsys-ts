@@ -1,6 +1,6 @@
-# pmsys
+# pmsys-lib 
 
-Typescript datatypes and Angular components for the PMSYS ecosystem
+Typescript datatypes and Angular components for the PMSYS ecosystem.
 
 ## Installation
 
@@ -10,64 +10,27 @@ To install this library, run:
 $ npm install pmsys --save
 ```
 
-## Consuming your library
+## Development server
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-```bash
-$ npm install pmsys
-```
+## Code scaffolding
 
-and then from your Angular `AppModule`:
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+## Build
 
-import { AppComponent } from './app.component';
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-// Import your library
-import { SampleModule } from 'pmsys';
+## Running unit tests
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-    // Specify your library as an import
-    LibraryModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
+## Running end-to-end tests
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
-```
 
-## Development
-
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
-
-```bash
-$ npm run build
-```
-
-To lint all `*.ts` files:
-
-```bash
-$ npm run lint
-```
 
 ## License
 
