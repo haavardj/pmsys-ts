@@ -3,24 +3,24 @@
   "version": 1,
   "newProjectRoot": "libs",
   "projects": {
-    "pmsys-apps-demo": {
-      "root": "",
+    "demo": {
+      "root": "apps/demo",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "demo",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pmsys-demoapp",
+            "outputPath": "dist/apps/demo",
             "index": "apps/demo/src/index.html",
             "main": "apps/demo/src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "apps/demo/src/polyfills.ts",
+            "tsConfig": "apps/demo/src/tsconfig.packaged.json",
             "assets": [
-              "apps/demo/src/favicon.ico",
-              "apps/demo/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "apps/demo/src/styles.css"
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pmsys-lib-app:build"
+            "browserTarget": "demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pmsys-lib-app:build:production"
+              "browserTarget": "demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pmsys-lib-app:build"
+            "browserTarget": "demo:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "pmsys-apps-demo-e2e": {
+    "demo-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
