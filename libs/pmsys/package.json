@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "pmsys",
   "version": "0.6.0",
 
@@ -22,12 +23,20 @@
   },
 
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/common": "^8.1.2",
+    "@angular/core": "^8.1.2",
     "moment": "2.22.2",
     "moment-timezone": "^0.5.21",
     "@types/moment-timezone": "^0.5.3",
     "lodash": "^4.17.4",
     "angular2-uuid": "^1.1.1"
+  },
+
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/public_api.ts"
+    },
+    "dest": "../../dist/pmsys"
   }
+
 }

@@ -1,18 +1,16 @@
-
-
 import * as moment_ from 'moment';
 const moment = moment_;
 
 import { UUID } from 'angular2-uuid';
 
-import { 
+import {
     IDataPoint,
     ITimeFrame,
     CurrentDateTimeFrame,
     ISchemaID,
     SchemaID,
     SchemaVersion,
-    IHeader, 
+    IHeader,
     PMSYS_2_0_PROVENANCE
 } from '../omh/index';
 
@@ -49,7 +47,7 @@ export const ValidSeverities = [
     'major',
 ];
 
-const INJURY_1_0_SCHEMA:ISchemaID = new SchemaID("corporesano", "injury", new SchemaVersion(1,0));
+const INJURY_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'injury', new SchemaVersion(1, 0));
 
 class PMSYSInjuryHeader implements IHeader {
     id = UUID.UUID();
@@ -57,13 +55,13 @@ class PMSYSInjuryHeader implements IHeader {
     schema_id: ISchemaID = INJURY_1_0_SCHEMA;
     acuisition_provenance = PMSYS_2_0_PROVENANCE;
 
-    constructor(public user_id: string) {};
+    constructor(public user_id: string) {}
 }
 
 export interface IInjury {
     effective_time_frame: ITimeFrame;
 
-    injuries: { [body_part: string]: string }
+    injuries: { [body_part: string]: string };
     comment: string;
 }
 
@@ -78,15 +76,15 @@ export class Injury implements IInjury {
         public effective_time_frame: ITimeFrame,
         public injuries: {},
         public comment: string
-    ) {};
+    ) {}
 }
 
-export function isInjury(t:any): t is IInjury {
-    let i = t as IInjury;
+export function isInjury(t: any): t is IInjury {
+    const i = t as IInjury;
     if (i.effective_time_frame === undefined) { return false; }
     if (i.injuries === undefined) { return false; }
     if (i.comment === undefined) { return false; }
-    return true;    
+    return true;
 }
 
 class InjuryHeader implements IHeader {
@@ -95,16 +93,16 @@ class InjuryHeader implements IHeader {
     schema_id: ISchemaID =  INJURY_1_0_SCHEMA;
     acuisition_provenance = PMSYS_2_0_PROVENANCE;
 
-    constructor(public user_id: string) {};
+    constructor(public user_id: string) {}
 }
 
 export class InjuryDataPoint implements IDataPoint<IInjury> {
-    
+
     header: IHeader;
     body: IInjury;
-        
+
     constructor(user_id: string, body: IInjury) {
         this.header = new InjuryHeader(user_id);
         this.body = body;
-    };
+    }
 }

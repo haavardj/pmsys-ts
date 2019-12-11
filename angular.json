@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "libs",
   "projects": {
-    "pmsys-lib-app": {
+    "pmsys-apps-demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,17 +13,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pmsys-lib-app",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "outputPath": "dist/pmsys-demoapp",
+            "index": "apps/demo/src/index.html",
+            "main": "apps/demo/src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/demo/src/favicon.ico",
+              "apps/demo/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "apps/demo/src/styles.css"
             ],
             "scripts": []
           },
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -67,17 +67,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "main": "apps/demo/src/test.ts",
+            "polyfills": "apps/demo/src/polyfills.ts",
+            "tsConfig": "apps/demo/src/tsconfig.spec.json",
+            "karmaConfig": "apps/demo/src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "apps/demo/src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/demo/src/favicon.ico",
+              "apps/demo/src/assets"
             ]
           }
         },
@@ -85,8 +85,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "apps/demo/src/tsconfig.app.json",
+              "apps/demo/src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -95,7 +95,7 @@
         }
       }
     },
-    "pmsys-lib-app-e2e": {
+    "pmsys-apps-demo-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -123,37 +123,37 @@
       }
     },
     "pmsys": {
-      "root": "projects/pmsys",
-      "sourceRoot": "projects/pmsys/src",
+      "root": "libs/pmsys",
+      "sourceRoot": "libs/pmsys/src",
       "projectType": "library",
       "prefix": "pmsys",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/pmsys/tsconfig.lib.json",
-            "project": "projects/pmsys/ng-package.json"
+            "tsConfig": "libs/pmsys/tsconfig.lib.json",
+            "project": "libs/pmsys/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/pmsys/ng-package.prod.json"
+              "project": "libs/pmsys/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/pmsys/src/test.ts",
-            "tsConfig": "projects/pmsys/tsconfig.spec.json",
-            "karmaConfig": "projects/pmsys/karma.conf.js"
+            "main": "libs/pmsys/src/test.ts",
+            "tsConfig": "libs/pmsys/tsconfig.spec.json",
+            "karmaConfig": "libs/pmsys/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/pmsys/tsconfig.lib.json",
-              "projects/pmsys/tsconfig.spec.json"
+              "libs/pmsys/tsconfig.lib.json",
+              "libs/pmsys/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

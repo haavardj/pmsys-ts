@@ -1,25 +1,25 @@
-import { 
-    IDurationUnitValue, 
-    DurationUnitValue, 
-    ITimeFrame, 
-    EmptyTimeFrame, 
-    CurrentDateTimeFrame, 
-    DateTimeFrame, 
-    ISchemaID, 
-    SchemaID, 
+import {
+    IDurationUnitValue,
+    DurationUnitValue,
+    ITimeFrame,
+    EmptyTimeFrame,
+    CurrentDateTimeFrame,
+    DateTimeFrame,
+    ISchemaID,
+    SchemaID,
     SchemaVersion,
-    IHeader, 
-    PMSYS_2_0_PROVENANCE, 
+    IHeader,
+    PMSYS_2_0_PROVENANCE,
     IDataPoint } from '../omh';
 
-import { UUID } from 'angular2-uuid';    
+import { UUID } from 'angular2-uuid';
 
 
 import * as moment_ from 'moment';
 const moment = moment_;
 
 
-export interface ISleep{
+export interface ISleep {
    duration: IDurationUnitValue;
    quality: number;
 }
@@ -37,32 +37,21 @@ export class Sleep implements ISleep {
     }
 }
 
-export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1,0));
-export const WELLNESS_1_1_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1,1));
+export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1, 0));
+export const WELLNESS_1_1_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1, 1));
 
 
-export interface IWellness_1_0{
+export interface IWellness_1_0 {
     effective_time_frame: ITimeFrame;
     readiness: number;
     fatigue: number;
     sleep: ISleep;
     soreness: number;
     stress: number;
-    mood: number;    
+    mood: number;
 }
 
-export interface IWellness_1_1{
-    effective_time_frame: ITimeFrame;
-    readiness: number;
-    fatigue: number;
-    sleep: ISleep;
-    soreness: number;
-    soreness_area: number[];
-    stress: number;
-    mood: number;    
-}
-
-export interface IWellness{
+export interface IWellness_1_1 {
     effective_time_frame: ITimeFrame;
     readiness: number;
     fatigue: number;
@@ -70,51 +59,62 @@ export interface IWellness{
     soreness: number;
     soreness_area: number[];
     stress: number;
-    mood: number;    
+    mood: number;
 }
 
-export class Wellness implements IWellness{
+export interface IWellness {
+    effective_time_frame: ITimeFrame;
+    readiness: number;
+    fatigue: number;
+    sleep: ISleep;
+    soreness: number;
+    soreness_area: number[];
+    stress: number;
+    mood: number;
+}
+
+export class Wellness implements IWellness {
     constructor(
-        public effective_time_frame: ITimeFrame, 
-        public readiness: number, 
-        public fatigue:number, 
+        public effective_time_frame: ITimeFrame,
+        public readiness: number,
+        public fatigue: number,
         public sleep: ISleep,
         public soreness: number,
         public soreness_area: number[],
         public stress: number,
-        public mood: number) {};
+        public mood: number) {}
 
 
-        static fromBasicValues ( 
-            date:Date, 
-            readiness:number, 
-            fatigue: number, 
-            sleepQuality: number, 
-            sleepMinutes:number, 
+        static fromBasicValues (
+            date: Date,
+            readiness: number,
+            fatigue: number,
+            sleepQuality: number,
+            sleepMinutes: number,
             soreness: number,
             soreness_area: number[],
             stress: number,
             mood: number): Wellness {
 
-                return new Wellness( 
-                    new CurrentDateTimeFrame(), 
-                    readiness, 
-                    fatigue, 
+                return new Wellness(
+                    new CurrentDateTimeFrame(),
+                    readiness,
+                    fatigue,
                     Sleep.fromBasicValues(sleepMinutes, sleepQuality),
                     soreness, soreness_area, stress, mood );
             }
 }
 
-export function isWellness(t:any): t is IWellness{
-    let i = t as IWellness;
-    if (i.effective_time_frame === undefined) return false;
-    if (i.readiness === undefined) return false;
-    if (i.fatigue === undefined) return false;
-    if (i.sleep === undefined) return false;
-    if (i.soreness === undefined) return false;
-    if (i.stress === undefined) return false;
-    if (i.mood === undefined) return false;    
-    return true;    
+export function isWellness(t: any): t is IWellness {
+    const i = t as IWellness;
+    if (i.effective_time_frame === undefined) { return false; }
+    if (i.readiness === undefined) { return false; }
+    if (i.fatigue === undefined) { return false; }
+    if (i.sleep === undefined) { return false; }
+    if (i.soreness === undefined) { return false; }
+    if (i.stress === undefined) { return false; }
+    if (i.mood === undefined) { return false; }
+    return true;
 }
 
 class WellnessHeader implements IHeader {
@@ -123,16 +123,16 @@ class WellnessHeader implements IHeader {
     schema_id: ISchemaID =  WELLNESS_1_0_SCHEMA;
     acuisition_provenance = PMSYS_2_0_PROVENANCE;
 
-    constructor(public user_id: string) {};
+    constructor(public user_id: string) {}
 }
 
 
 export class WellnessDataPoint implements IDataPoint<IWellness> {
-   
+
     public header: IHeader;
     public body: IWellness;
-        
-    constructor(user_id:string, body: IWellness) {
+
+    constructor(user_id: string, body: IWellness) {
         this.header = new WellnessHeader(user_id);
         this.body = body;
     }
