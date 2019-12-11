@@ -1,4 +1,4 @@
-import { IHeader } from './header'
+import { IHeader } from './header';
 
 export interface IDataPointShort {
     header: IHeader;
@@ -16,7 +16,7 @@ export interface IDataPointQuery {
     created_before?: Date;
     skip?: number;
     limit?: number;
-};
+}
 
 export class DataPoint<T> implements IDataPoint<T> {
     constructor(public header: IHeader, public body: T) {}

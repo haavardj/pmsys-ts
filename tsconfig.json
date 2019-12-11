@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -16,19 +16,10 @@
       "es2017",
       "dom"
     ],
+
     "paths": {
-      "models": [
-        "dist/models"
-      ],
-      "models/*": [
-        "dist/models/*"
-      ],
-      "pmsys": [
-        "dist/pmsys"
-      ],
-      "pmsys/*": [
-        "dist/pmsys/*"
-      ]
+      "pmsys": ["dist/libs/pmsys"]
     }
   }
 }
+

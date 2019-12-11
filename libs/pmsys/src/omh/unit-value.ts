@@ -5,6 +5,6 @@ export interface IUnitValue {
 
 export class UnitValue implements IUnitValue {
 
-    constructor(public value:number, public unit:string) {};
+    constructor(public value: number, public unit: string) {}
 }
 
