@@ -1,7 +1,7 @@
 {
   "name": "pmsys-lib",
   "version": "0.6.0",
-  "description": "Common datatypes and functions for PMSYS.",
+  "description": "Person Monitoring Library",
   "author": {
     "name": "Håvard Dagenborg Johansen",
     "email": "haavardj@dagenborg.net"

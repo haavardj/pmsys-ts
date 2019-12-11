@@ -152,8 +152,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/pmsys/tsconfig.lib.json",
-              "libs/pmsys/tsconfig.spec.json"
+              "libs/core/tsconfig.lib.json",
+              "libs/core/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
