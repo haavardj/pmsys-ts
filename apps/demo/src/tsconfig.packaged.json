@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.packaged.json",
   "compilerOptions": {
-    "outDir": "../../../dist/apps/demo-packaged",
+    "outDir": "../../../dist/apps/demo",
     "module": "es2015"
   },
   "include": [
