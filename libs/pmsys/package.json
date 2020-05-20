@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "pmsys",
-  "version": "0.7.0",
+  "version": "0.8.0",
 
   "repository": {
     "type": "git",
@@ -23,10 +23,9 @@
   },
 
   "peerDependencies": {
-    "moment": "2.22.2",
-    "moment-timezone": "^0.5.21",
-    "@types/moment-timezone": "^0.5.3",
     "lodash": "^4.17.4",
+    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
     "angular2-uuid": "^1.1.1"
   },
 
