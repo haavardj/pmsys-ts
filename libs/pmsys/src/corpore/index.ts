@@ -4,5 +4,6 @@ export * from './session-rpe';
 export * from './team';
 export * from './user-statistic';
 export * from './wellness';
+export * from './game-performance';
 export * from './participation';
 export * from './injury';
