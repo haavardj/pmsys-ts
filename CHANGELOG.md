@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/haavardj/pmsys-ts/compare/v0.7.0...v0.8.0) (2020-05-20)
+
+
+### Features
+
+* add menstrual datapoint ([d6f30c9](https://github.com/haavardj/pmsys-ts/commit/d6f30c959c4a09b220077df9d9ac927d70bc2629))
+
+
+### Bug Fixes
+
+* use snake case ([9c14d04](https://github.com/haavardj/pmsys-ts/commit/9c14d04ea8a0d3c2b0ade7eef8c9ad835dbc499e))
+
 ## [0.7.0](https://github.com/haavardj/pmsys-ts/compare/v0.6.0...v0.7.0) (2019-12-11)
 
 <a name="0.6.0"></a>
