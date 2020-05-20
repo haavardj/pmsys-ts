@@ -45,7 +45,7 @@ class PMSYSMenstrualHeader implements IHeader {
 export class EmptyMenstrual implements IMenstrual {
   flow = MenstrualFlow.Unspecified;
   time_frame = new EmptyTimeFrame();
-  cycleStart = true;
+  cycle_start = true;
 }
 
 export class MenstrualDataPoint implements IDataPoint<IMenstrual> {
