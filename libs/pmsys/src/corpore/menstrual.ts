@@ -1,4 +1,5 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
+
 import { UUID } from 'angular2-uuid';
 
 import {
@@ -9,7 +10,7 @@ import {
   ITimeFrame,
   SchemaID,
   PMSYS_2_0_PROVENANCE, EmptyTimeFrame
-} from 'pmsys';
+} from '../omh';
 
 const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
