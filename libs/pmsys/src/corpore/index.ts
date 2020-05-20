@@ -6,3 +6,4 @@ export * from './user-statistic';
 export * from './wellness';
 export * from './participation';
 export * from './injury';
+export * from './menstrual';
