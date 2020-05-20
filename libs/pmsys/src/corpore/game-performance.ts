@@ -13,7 +13,7 @@ import {
 
 const GAME_PERFORMANCE_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'gamePerformance', new SchemaVersion(1, 0));
 
-class PMSYSParticipationHeader implements IHeader {
+class PMSYSGamePerformanceHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
     schema_id: ISchemaID = GAME_PERFORMANCE_1_0_SCHEMA;
