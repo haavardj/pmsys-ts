@@ -24,13 +24,13 @@ class PMSYSIllnessHeader implements IHeader {
 
 export interface IIllness {
     datetime: Date;
-    problems: [];
+    problems: string[];
 }
 
 export class Illness implements IIllness {
     static fromBasicValues (
         datetime: Date,
-        problems: []) {
+        problems: string[]) {
         return new Illness(
             datetime,
             problems);
@@ -38,7 +38,7 @@ export class Illness implements IIllness {
 
     constructor(
         public datetime: Date,
-        public problems: []
+        public problems: string[]
     ) {}
 }
 

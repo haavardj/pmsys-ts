@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';
 import {IGamePerformance, isGamePerformance} from "./game-performance";
+import {IIllness, isIllness} from "./illness";
 
 declare let jStat: any;
 
@@ -84,6 +85,7 @@ export class UserStatistics  {
     public participationData: IDataPoint<IParticipation>[] = [];
     public injuryData: IDataPoint<IInjury>[] = [];
     public gamePerformanceData: IDataPoint<IGamePerformance>[] = [];
+    public illnessData: IDataPoint<IIllness>[] = [];
 
     /* Indicates that a recompute is needed */
     private _dirty = false;
@@ -117,6 +119,9 @@ export class UserStatistics  {
         } else if (isGamePerformance(value.body)) {
             this._dirty = true;
             this.gamePerformanceData.push(value);
+        } else if (isIllness(value.body)) {
+            this._dirty = true;
+            this.illnessData.push(value);
         } else {
             throw new Error('Unknown user datatype');
         }
