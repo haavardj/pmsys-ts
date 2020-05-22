@@ -36,7 +36,7 @@ export interface IMenstrual {
 
 export class MenstrualHeader implements IHeader {
     schema_id: ISchemaID = MENSTUAL_1_0_SCHEMA;
-    acuisition_provenance = PMSYS_2_0_PROVENANCE;
+    acquisition_provenance = PMSYS_2_0_PROVENANCE;
     constructor(public id: string, public creation_date_time: Date, public user_id: string) {}
 }
 

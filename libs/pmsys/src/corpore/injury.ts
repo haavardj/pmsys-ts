@@ -53,7 +53,7 @@ class PMSYSInjuryHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
     schema_id: ISchemaID = INJURY_1_0_SCHEMA;
-    acuisition_provenance = PMSYS_2_0_PROVENANCE;
+    acquisition_provenance = PMSYS_2_0_PROVENANCE;
 
     constructor(public user_id: string) {}
 }
@@ -91,7 +91,7 @@ class InjuryHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
     schema_id: ISchemaID =  INJURY_1_0_SCHEMA;
-    acuisition_provenance = PMSYS_2_0_PROVENANCE;
+    acquisition_provenance = PMSYS_2_0_PROVENANCE;
 
     constructor(public user_id: string) {}
 }
