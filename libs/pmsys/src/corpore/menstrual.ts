@@ -33,14 +33,10 @@ export interface IMenstrual {
   cycle_start: boolean;
 }
 
-class PMSYSMenstrualHeader implements IHeader {
-    id = UUID.UUID();
-    creation_date_time = moment.tz(moment.tz.guess()).toDate();
+export class MenstrualHeader implements IHeader {
     schema_id: ISchemaID = MENSTUAL_1_0_SCHEMA;
     acuisition_provenance = PMSYS_2_0_PROVENANCE;
-
-    constructor(public user_id: string) {}
-
+    constructor(public id: string, public creation_date_time: Date, public user_id: string) {}
 }
 
 export class EmptyMenstrual implements IMenstrual {
@@ -52,4 +48,11 @@ export class EmptyMenstrual implements IMenstrual {
 export class MenstrualDataPoint implements IDataPoint<IMenstrual> {
     header: IHeader;
     body: IMenstrual;
+
+    constructor(id: string, creation_date_time: Date, user_id: string, body: IMenstrual ) {
+      this.header = new MenstrualHeader(id, creation_date_time, user_id);
+      this.body = body;
+    }
+
+
 }
