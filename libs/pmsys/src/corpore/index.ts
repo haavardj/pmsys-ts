@@ -8,3 +8,4 @@ export * from './game-performance';
 export * from './illness';
 export * from './participation';
 export * from './injury';
+export * from './menstrual';
