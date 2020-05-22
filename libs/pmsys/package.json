@@ -1,8 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "pmsys",
-  "version": "0.8.0",
-
+  "version": "0.8.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/haavardj/pmsys-ts.git"
@@ -11,7 +10,6 @@
     "name": "Håvard Dagenborg Johansen",
     "email": "haavardj@dagenborg.net"
   },
-
   "keywords": [
     "Open mHealth",
     "omh",
@@ -21,19 +19,16 @@
   "bugs": {
     "url": "https://github.com/haavardj/pmsys-ts.git/issues"
   },
-
   "peerDependencies": {
     "lodash": "^4.17.4",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
     "angular2-uuid": "^1.1.1"
   },
-
   "ngPackage": {
     "lib": {
       "entryFile": "src/public_api.ts"
     },
     "dest": "../../dist/libs/pmsys"
   }
-
 }
