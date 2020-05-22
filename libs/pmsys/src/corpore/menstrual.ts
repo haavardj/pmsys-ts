@@ -11,6 +11,7 @@ import {
   SchemaID,
   PMSYS_2_0_PROVENANCE, EmptyTimeFrame
 } from '../omh';
+import {IInjury} from './injury';
 
 const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
@@ -18,7 +19,7 @@ const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   new SchemaVersion(1, 0)
 );
 
-enum MenstrualFlow {
+export enum MenstrualFlow {
   Unspecified= "unspecified",
   None = "none",
   Light= "light",
@@ -35,7 +36,7 @@ export interface IMenstrual {
 
 export class MenstrualHeader implements IHeader {
     schema_id: ISchemaID = MENSTUAL_1_0_SCHEMA;
-    acuisition_provenance = PMSYS_2_0_PROVENANCE;
+    acquisition_provenance = PMSYS_2_0_PROVENANCE;
     constructor(public id: string, public creation_date_time: Date, public user_id: string) {}
 }
 
@@ -53,6 +54,12 @@ export class MenstrualDataPoint implements IDataPoint<IMenstrual> {
       this.header = new MenstrualHeader(id, creation_date_time, user_id);
       this.body = body;
     }
+}
 
-
+export function isMenstrual(t: any): t is IMenstrual{
+  const i = t as IMenstrual;
+  if (i.flow === undefined) { return false; }
+  if (i.time_frame === undefined) { return false; }
+  if (i.cycle_start === undefined) { return false; }
+  return true;
 }

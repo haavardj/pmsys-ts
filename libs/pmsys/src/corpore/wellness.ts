@@ -119,7 +119,7 @@ class WellnessHeader implements IHeader {
     id = UUID.UUID();
     creation_date_time = moment.tz(moment.tz.guess()).toDate();
     schema_id: ISchemaID =  WELLNESS_1_0_SCHEMA;
-    acuisition_provenance = PMSYS_2_0_PROVENANCE;
+    acquisition_provenance = PMSYS_2_0_PROVENANCE;
 
     constructor(public user_id: string) {}
 }

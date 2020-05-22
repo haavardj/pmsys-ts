@@ -24,6 +24,6 @@ export interface IHeader {
     id: string;
     creation_date_time: Date;
     schema_id: ISchemaID;
-    acuisition_provenance?: IAcquisitionProvenance;
+    acquisition_provenance?: IAcquisitionProvenance;
     user_id: string;
 }
