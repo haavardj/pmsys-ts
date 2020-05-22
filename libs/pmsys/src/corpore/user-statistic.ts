@@ -10,6 +10,8 @@ const moment = moment_;
 import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';
+import {IGamePerformance, isGamePerformance} from "./game-performance";
+import {IIllness, isIllness} from "./illness";
 
 declare let jStat: any;
 
@@ -82,6 +84,8 @@ export class UserStatistics  {
     public wellnessData: IDataPoint<IWellness>[] = [];
     public participationData: IDataPoint<IParticipation>[] = [];
     public injuryData: IDataPoint<IInjury>[] = [];
+    public gamePerformanceData: IDataPoint<IGamePerformance>[] = [];
+    public illnessData: IDataPoint<IIllness>[] = [];
 
     /* Indicates that a recompute is needed */
     private _dirty = false;
@@ -112,6 +116,12 @@ export class UserStatistics  {
         } else if (isInjury(value.body)) {
             this._dirty = true;
             this.injuryData.push(value);
+        } else if (isGamePerformance(value.body)) {
+            this._dirty = true;
+            this.gamePerformanceData.push(value);
+        } else if (isIllness(value.body)) {
+            this._dirty = true;
+            this.illnessData.push(value);
         } else {
             throw new Error('Unknown user datatype');
         }
@@ -186,8 +196,6 @@ export class UserStatistics  {
             this.currentLoadScore = _.last(this.srpeYData);
 
             this.currentStrainScore = -1;
-
-
         } else {
             this.currentFatigueScore = -1;
             this.currentMoodScore = -1;
