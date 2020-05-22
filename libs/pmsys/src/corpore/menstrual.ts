@@ -11,6 +11,7 @@ import {
   SchemaID,
   PMSYS_2_0_PROVENANCE, EmptyTimeFrame
 } from '../omh';
+import {IInjury} from './injury';
 
 const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
@@ -53,6 +54,12 @@ export class MenstrualDataPoint implements IDataPoint<IMenstrual> {
       this.header = new MenstrualHeader(id, creation_date_time, user_id);
       this.body = body;
     }
+}
 
-
+export function isMenstrual(t: any): t is IMenstrual{
+  const i = t as IMenstrual;
+  if (i.flow === undefined) { return false; }
+  if (i.time_frame === undefined) { return false; }
+  if (i.cycle_start === undefined) { return false; }
+  return true;
 }
