@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://github.com/haavardj/pmsys-ts/compare/v0.8.1...v0.8.2) (2020-05-22)
+
+
+### Bug Fixes
+
+* export menstrual flow enum ([c40e177](https://github.com/haavardj/pmsys-ts/commit/c40e177f4d07ad863247e75cd42241cd35cd8abc))
+* IMenstrual type check is missing ([1872f3d](https://github.com/haavardj/pmsys-ts/commit/1872f3d9dd1d6d7255be4f935819c8d52cfe43b3))
+
 ### [0.8.1](https://github.com/haavardj/pmsys-ts/compare/v0.8.0...v0.8.1) (2020-05-22)
 
 
