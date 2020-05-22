@@ -19,7 +19,7 @@ const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   new SchemaVersion(1, 0)
 );
 
-enum MenstrualFlow {
+export enum MenstrualFlow {
   Unspecified= "unspecified",
   None = "none",
   Light= "light",
