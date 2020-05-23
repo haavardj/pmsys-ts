@@ -23,7 +23,7 @@ class PMSYSGamePerformanceHeader implements IHeader {
 }
 
 export interface IGamePerformance {
-    effective_time_frame: ITimeFrame;
+    date_time: Date;
     team_overall_performance: number;
     individual_defensive_performance: number;
     individual_offensive_performance: number;
@@ -31,19 +31,19 @@ export interface IGamePerformance {
 
 export class GamePerformance implements IGamePerformance {
     static fromBasicValues (
-        effective_time_frame: ITimeFrame,
+        date_time: Date,
         team_overall_performance: number,
         individual_defensive_performance: number,
         individual_offensive_performance: number) {
         return new GamePerformance(
-            effective_time_frame,
+            date_time,
             team_overall_performance,
             individual_defensive_performance,
             individual_offensive_performance);
     }
 
     constructor(
-        public effective_time_frame: ITimeFrame,
+        public date_time: Date,
         public team_overall_performance: number,
         public individual_defensive_performance: number,
         public individual_offensive_performance: number
@@ -52,7 +52,7 @@ export class GamePerformance implements IGamePerformance {
 
 export function isGamePerformance(t: any): t is IGamePerformance {
     const i = t as IGamePerformance;
-    if (i.effective_time_frame === undefined) { return false; }
+    if (i.date_time === undefined) { return false; }
     if (i.team_overall_performance === undefined) { return false; }
     if (i.individual_defensive_performance === undefined) { return false; }
     if (i.individual_offensive_performance === undefined) { return false; }

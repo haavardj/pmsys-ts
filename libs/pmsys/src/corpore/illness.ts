@@ -23,29 +23,29 @@ class PMSYSIllnessHeader implements IHeader {
 }
 
 export interface IIllness {
-    effective_time_frame: ITimeFrame;
+    date_time: Date;
     problems: string[];
 }
 
 export class Illness implements IIllness {
 
     static fromBasicValues (
-        effective_time_frame: ITimeFrame,
+        date_time: Date,
         problems: string[]) {
         return new Illness(
-            effective_time_frame,
+            date_time,
             problems);
     }
 
     constructor(
-        public effective_time_frame: ITimeFrame,
+        public date_time: Date,
         public problems: string[]
     ) {}
 }
 
 export function isIllness(t: any): t is IIllness {
     const i = t as IIllness;
-    if (i.effective_time_frame === undefined) { return false; }
+    if (i.date_time === undefined) { return false; }
     if (i.problems === undefined) { return false; }
     return true;
 }
