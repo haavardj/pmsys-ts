@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/haavardj/pmsys-ts/compare/v0.9.1...v0.9.2) (2020-05-24)
+
+
+### Bug Fixes
+
+* missing update of corona datapoints ([3e6d810](https://github.com/haavardj/pmsys-ts/commit/3e6d810778569df7685409710ac4da9bf12336e3))
+
 ### [0.9.1](https://github.com/haavardj/pmsys-ts/compare/v0.9.0...v0.9.1) (2020-05-24)
 
 
