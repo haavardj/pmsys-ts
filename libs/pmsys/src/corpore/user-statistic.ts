@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';
 import {IGamePerformance, isGamePerformance} from "./game-performance";
-import {IIllness, isIllness} from "./illness";
+import {IIllness, Illness, isIllness} from './illness';
 import {IMenstrual, isMenstrual} from './menstrual';
 import {ICoronaCheck, isCoronaCheck} from './corona-check';
 
@@ -156,7 +156,8 @@ export class UserStatistics  {
         this.computeInjuryData();
         this.computeMensturalData();
         this.computeCoronaCheckData();
-
+        this.computeGamePerfornamceData();
+        this.computeIllnessData();
         this._dirty = false;
     }
 
@@ -402,6 +403,48 @@ export class UserStatistics  {
 
     this.latestReport['corona-check'] = this.coronaCheckData[last].body.date_time;
     this.earliestReport['corona-check'] = this.coronaCheckData[0].body.date_time;
+  }
+
+  private computeIllnessData(): void {
+
+    /* Skip if no data */
+    if (this.illnessData.length === 0) {
+      return;
+    }
+
+    /* Make sure input array is sorted */
+    this.illnessData = this.illnessData.sort((a: IDataPoint<Illness>, b: IDataPoint<Illness>) =>
+      dateCmp(a.body.date_time, b.body.date_time ));
+
+    const last = this.illnessData.length - 1;
+
+    if (last < 0) {
+      return;
+    }
+
+    this.latestReport['illness'] = this.illnessData[last].body.date_time;
+    this.earliestReport['illness'] = this.illnessData[0].body.date_time;
+  }
+
+  private computeGamePerfornamceData(): void {
+
+    /* Skip if no data */
+    if (this.gamePerformanceData.length === 0) {
+      return;
+    }
+
+    /* Make sure input array is sorted */
+    this.gamePerformanceData = this.gamePerformanceData.sort((a: IDataPoint<IGamePerformance>, b: IDataPoint<IGamePerformance>) =>
+      dateCmp(a.body.date_time, b.body.date_time ));
+
+    const last = this.gamePerformanceData.length - 1;
+
+    if (last < 0) {
+      return;
+    }
+
+    this.latestReport['gamePerformance'] = this.gamePerformanceData[last].body.date_time;
+    this.earliestReport['gamePerformance'] = this.gamePerformanceData[0].body.date_time;
   }
 
 }
