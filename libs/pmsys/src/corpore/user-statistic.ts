@@ -155,6 +155,7 @@ export class UserStatistics  {
         this.computeParticipationData();
         this.computeInjuryData();
         this.computeMensturalData();
+        this.computeCoronaCheckData();
 
         this._dirty = false;
     }
