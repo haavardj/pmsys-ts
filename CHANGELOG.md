@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.3](https://github.com/haavardj/pmsys-ts/compare/v0.9.2...v0.9.3) (2020-05-24)
+
+
+### Bug Fixes
+
+* compute gamePerformance and illness reports ([dd0f407](https://github.com/haavardj/pmsys-ts/commit/dd0f407a91321be506e8f28ba2aab7506dc6ea80))
+
 ### [0.9.2](https://github.com/haavardj/pmsys-ts/compare/v0.9.1...v0.9.2) (2020-05-24)
 
 
