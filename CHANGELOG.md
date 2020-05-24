@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://github.com/haavardj/pmsys-ts/compare/v0.9.0...v0.9.1) (2020-05-24)
+
+
+### Bug Fixes
+
+* missing computations of new corona and menstrual datapoints ([9b5adf5](https://github.com/haavardj/pmsys-ts/commit/9b5adf53795caba58b068df11391b74666722c04))
+
 ## [0.9.0](https://github.com/haavardj/pmsys-ts/compare/v0.8.3...v0.9.0) (2020-05-24)
 
 

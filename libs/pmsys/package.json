@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "pmsys",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/haavardj/pmsys-ts.git"
