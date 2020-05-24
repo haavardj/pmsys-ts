@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/haavardj/pmsys-ts/compare/v0.8.3...v0.9.0) (2020-05-24)
+
+
+### Features
+
+* add game performance and illness reports ([#7](https://github.com/haavardj/pmsys-ts/issues/7)) ([34ff13f](https://github.com/haavardj/pmsys-ts/commit/34ff13f0487b098355a507f98ce7e59bed7d4e66))
+* corona symptoms check datatype ([#9](https://github.com/haavardj/pmsys-ts/issues/9)) ([a9042eb](https://github.com/haavardj/pmsys-ts/commit/a9042eb000cdd7a6bd483bd629a386e46d567cb8))
+
 ### [0.8.3](https://github.com/haavardj/pmsys-ts/compare/v0.8.2...v0.8.3) (2020-05-22)
 
 
