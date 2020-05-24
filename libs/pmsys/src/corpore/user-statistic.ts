@@ -12,6 +12,8 @@ import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';
 import {IGamePerformance, isGamePerformance} from "./game-performance";
 import {IIllness, isIllness} from "./illness";
+import {IMenstrual, isMenstrual} from './menstrual';
+import {ICoronaCheck, isCoronaCheck} from './corona-check';
 
 declare let jStat: any;
 
@@ -86,6 +88,8 @@ export class UserStatistics  {
     public injuryData: IDataPoint<IInjury>[] = [];
     public gamePerformanceData: IDataPoint<IGamePerformance>[] = [];
     public illnessData: IDataPoint<IIllness>[] = [];
+    public menstrualData: IDataPoint<IMenstrual>[] = [];
+    public coronaCheckData: IDataPoint<ICoronaCheck>[] = [];
 
     /* Indicates that a recompute is needed */
     private _dirty = false;
@@ -122,6 +126,12 @@ export class UserStatistics  {
         } else if (isIllness(value.body)) {
             this._dirty = true;
             this.illnessData.push(value);
+        } else if (isMenstrual(value.body)) {
+            this._dirty = true;
+            this.menstrualData.push(value);
+        } else if (isCoronaCheck(value.body)) {
+            this._dirty = true;
+            this.coronaCheckData.push(value);
         } else {
             throw new Error('Unknown user datatype');
         }
@@ -144,6 +154,7 @@ export class UserStatistics  {
         this.computeScores();
         this.computeParticipationData();
         this.computeInjuryData();
+        this.computeMensturalData();
 
         this._dirty = false;
     }
@@ -347,6 +358,51 @@ export class UserStatistics  {
             idata.push(1);
         }
     }
+
+
+    private computeMensturalData(): void {
+
+      /* Skip if no data */
+      if (this.menstrualData.length === 0) {
+        return;
+      }
+
+      /* Make sure input array is sorted */
+      this.menstrualData = this.menstrualData.sort((a: IDataPoint<IMenstrual>, b: IDataPoint<IMenstrual>) =>
+        dateCmp(a.body.time_frame.date_time, b.body.time_frame.date_time ));
+
+      const last = this.menstrualData.length - 1;
+
+      if (last < 0) {
+        return;
+      }
+
+      this.latestReport['menstrual'] = this.menstrualData[last].body.time_frame.date_time;
+      this.earliestReport['menstrual'] = this.menstrualData[0].body.time_frame.date_time;
+    }
+
+
+  private computeCoronaCheckData(): void {
+
+    /* Skip if no data */
+    if (this.coronaCheckData.length === 0) {
+      return;
+    }
+
+    /* Make sure input array is sorted */
+    this.coronaCheckData = this.coronaCheckData.sort((a: IDataPoint<ICoronaCheck>, b: IDataPoint<ICoronaCheck>) =>
+      dateCmp(a.body.date_time, b.body.date_time ));
+
+    const last = this.coronaCheckData.length - 1;
+
+    if (last < 0) {
+      return;
+    }
+
+    this.latestReport['corona-check'] = this.coronaCheckData[last].body.date_time;
+    this.earliestReport['corona-check'] = this.coronaCheckData[0].body.date_time;
+  }
+
 }
 
 
