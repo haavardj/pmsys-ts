@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.5](https://github.com/haavardj/pmsys-ts/compare/v0.9.4...v0.9.5) (2020-07-06)
+
+
+### Bug Fixes
+
+* menstrual headers did not initialize correctly ([c46e2fb](https://github.com/haavardj/pmsys-ts/commit/c46e2fbf48ec5696dafc77bca83cd990c60817e9))
+* MENSTRUAL_1_0_SCHEMA was not exported ([cd23058](https://github.com/haavardj/pmsys-ts/commit/cd2305849f8c6d20ce13e452997a6dfe76eba39f))
+
 ### [0.9.4](https://github.com/haavardj/pmsys-ts/compare/v0.9.3...v0.9.4) (2020-07-06)
 
 
