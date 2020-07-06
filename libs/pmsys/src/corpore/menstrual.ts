@@ -13,7 +13,7 @@ import {
 } from '../omh';
 import {IInjury} from './injury';
 
-const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
+export const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
   'menstrual',
   new SchemaVersion(1, 0)
