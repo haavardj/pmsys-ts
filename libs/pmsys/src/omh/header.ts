@@ -20,10 +20,16 @@ export const PMSYS_2_0_PROVENANCE = new AcquisitionProvenance(
     'self-reported');
 
 
-export interface IHeader {
+export interface IHeaderV1 {
     id: string;
     creation_date_time: Date;
     schema_id: ISchemaID;
     acquisition_provenance?: IAcquisitionProvenance;
     user_id: string;
+}
+
+export interface IHeader extends IHeaderV1{
+
+  modified_date_time?: Date;
+  effective_date_time?: Date;
 }
