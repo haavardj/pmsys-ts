@@ -1,7 +1,3 @@
-import moment from 'moment-timezone';
-
-import { UUID } from 'angular2-uuid';
-
 import {
   IDataPoint,
   ISchemaID,
@@ -11,7 +7,6 @@ import {
   SchemaID,
   PMSYS_2_0_PROVENANCE, EmptyTimeFrame
 } from '../omh';
-import {IInjury} from './injury';
 
 export const MENSTUAL_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
@@ -37,7 +32,7 @@ export interface IMenstrual {
 export class MenstrualHeader implements IHeader {
     schema_id: ISchemaID = MENSTUAL_1_0_SCHEMA;
     acquisition_provenance = PMSYS_2_0_PROVENANCE;
-    constructor(public id: string, public creation_date_time: Date, public user_id: string) {}
+    constructor(public id: string,  public user_id: string, public creation_date_time: Date, public modified_date_time: Date, public effective_date_time: Date) {}
 }
 
 export class EmptyMenstrual implements IMenstrual {
@@ -50,8 +45,8 @@ export class MenstrualDataPoint implements IDataPoint<IMenstrual> {
     header: IHeader;
     body: IMenstrual;
 
-    constructor(id: string, creation_date_time: Date, user_id: string, body: IMenstrual ) {
-      this.header = new MenstrualHeader(id, creation_date_time, user_id);
+    constructor(id: string, user_id: string, created: Date, modified: Date, effective: Date, body: IMenstrual ) {
+      this.header = new MenstrualHeader(id, user_id, created, modified, effective);
       this.body = body;
     }
 }
