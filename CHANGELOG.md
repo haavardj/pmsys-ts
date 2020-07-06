@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.4](https://github.com/haavardj/pmsys-ts/compare/v0.9.3...v0.9.4) (2020-07-06)
+
+
+### Features
+
+* add modified and effective date to the IHeader interface ([2823a59](https://github.com/haavardj/pmsys-ts/commit/2823a592723db733d53b383b5d9bd5716e5daf3e))
+
 ### [0.9.3](https://github.com/haavardj/pmsys-ts/compare/v0.9.2...v0.9.3) (2020-05-24)
 
 
