@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.1](https://github.com/haavardj/pmsys-ts/compare/v0.10.0...v0.10.1) (2020-07-08)
+
+
+### Bug Fixes
+
+* missing sport of participation schema ([bae1528](https://github.com/haavardj/pmsys-ts/commit/bae15281e57fd6e6f75cc50d4c3059e2e68d02ae))
+* missing sport of participation schema ([9cfa721](https://github.com/haavardj/pmsys-ts/commit/9cfa7217a2734db25750639d132c04b2d0b509be))
+
 ## [0.10.0](https://github.com/haavardj/pmsys-ts/compare/v0.9.5...v0.10.0) (2020-07-08)
 
 
