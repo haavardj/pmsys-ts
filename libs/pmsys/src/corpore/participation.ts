@@ -5,7 +5,7 @@ import {
     SchemaVersion,
 } from '../omh/index';
 
-const PARTICIPATION_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'participation', new SchemaVersion(1, 0));
+export const PARTICIPATION_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'participation', new SchemaVersion(1, 0));
 
 export interface IParticipation {
     effective_time_frame: ITimeFrame;
