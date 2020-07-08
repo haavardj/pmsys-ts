@@ -5,7 +5,7 @@ import {
 } from '../omh';
 
 
-const CORONA_CHECK_1_0_SCHEMA: ISchemaID = new SchemaID(
+export const CORONA_CHECK_1_0_SCHEMA: ISchemaID = new SchemaID(
   'corporesano',
   'corona-check',
   new SchemaVersion(1, 0)

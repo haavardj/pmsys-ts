@@ -9,7 +9,7 @@ import {
   PMSYS_2_0_PROVENANCE, ITimeFrame
 } from '../omh/index';
 
-const ILLNESS_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'illness', new SchemaVersion(1, 0));
+export const ILLNESS_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'illness', new SchemaVersion(1, 0));
 
 export interface IIllness {
     date_time: string;

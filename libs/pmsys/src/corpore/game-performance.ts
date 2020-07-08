@@ -4,7 +4,7 @@ import {
   SchemaVersion,
 } from '../omh';
 
-const GAME_PERFORMANCE_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'gamePerformance', new SchemaVersion(1, 0));
+export const GAME_PERFORMANCE_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'gamePerformance', new SchemaVersion(1, 0));
 
 export interface IGamePerformance {
     date_time: string;

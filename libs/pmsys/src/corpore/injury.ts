@@ -39,7 +39,7 @@ export const ValidSeverities = [
     'major',
 ];
 
-const INJURY_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'injury', new SchemaVersion(1, 0));
+export const INJURY_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'injury', new SchemaVersion(1, 0));
 
 export interface IInjury {
     effective_time_frame: ITimeFrame;
