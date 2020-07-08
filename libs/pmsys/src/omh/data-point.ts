@@ -12,8 +12,8 @@ export interface IDataPointQuery {
     schema_namespace?: string;
     schema_name?: string;
     schema_version?: string;
-    created_on_or_after?: Date;
-    created_before?: Date;
+    created_on_or_after?: string;
+    created_before?: string;
     skip?: number;
     limit?: number;
 }

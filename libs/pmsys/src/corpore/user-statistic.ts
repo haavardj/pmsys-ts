@@ -11,14 +11,14 @@ import * as _ from 'lodash';
 import {IParticipation, isParticipation} from './participation';
 import {IInjury, isInjury} from './injury';
 import {IGamePerformance, isGamePerformance} from "./game-performance";
-import {IIllness, Illness, isIllness} from './illness';
+import {IIllness, isIllness} from './illness';
 import {IMenstrual, isMenstrual} from './menstrual';
 import {ICoronaCheck, isCoronaCheck} from './corona-check';
 
 declare let jStat: any;
 
-export function dateCmp(a: Date, b: Date): number {
-    return (a > b ? 1 : a < b ? -1 : 0);
+export function dateCmp(a: string, b: string): number {
+    return (new Date(a) > new Date(b) ? 1 : a < b ? -1 : 0);
 }
 
 
@@ -29,28 +29,28 @@ export class UserStatistics  {
 
     private currentScoreValidityDays = 1;
 
-    public srpeXData: Date[] = [];
+    public srpeXData: string[] = [];
     public srpeYData: number[] = [];
     public exertion: number[] = [];
 
     public mood: number[] = [];
-    public moodX: Date[] = [];
+    public moodX: string[] = [];
 
     public readiness: number[] = [];
-    public readinessX: Date[] = [];
+    public readinessX: string[] = [];
 
     public stress: number[] = [];
-    public stressX: Date[] = [];
+    public stressX: string[] = [];
 
     public soreness: number[] = [];
-    public sorenessX: Date[] = [];
+    public sorenessX: string[] = [];
 
     public fatigue: number[] = [];
-    public fatigueX: Date[] = [];
+    public fatigueX: string[] = [];
 
     public sleepDuration: number[] = [];
     public sleepQuality: number[] = [];
-    public sleepX: Date[] = [];
+    public sleepX: string[] = [];
 
     public generalReadiness = -1;
     public localReadiness = -1;
@@ -69,17 +69,17 @@ export class UserStatistics  {
 
     public currentTrendScore: number = null;
 
-    public participateX: Date[] = [];
+    public participateX: string[] = [];
     public participateGoing: string[] = [];
     public participateComment: string[] = [];
 
     public lastInjury: IInjury;
 
     /* Latest seen datapoints for different datatypes */
-    public latestReport: { [key: string]: Date} = {};
+    public latestReport: { [key: string]: string} = {};
 
     /* Earliest seen datapoints for different datatypes */
-    public earliestReport: { [key: string]: Date} = {};
+    public earliestReport: { [key: string]: string} = {};
 
     /* storeas raw datapoints */
     public srpeData: IDataPoint<ISessionRPE>[] = [];
@@ -94,7 +94,7 @@ export class UserStatistics  {
     /* Indicates that a recompute is needed */
     private _dirty = false;
 
-    public getLatest(name: string): Date {
+    public getLatest(name: string): string {
 
         return this.latestReport[name];
     }
@@ -350,7 +350,7 @@ export class UserStatistics  {
 
         for (const val of  this.srpeData) {
 
-            const onDay = new Date((val.body.time_interval as IEndDateTimeInterval).end_date_time);
+            const onDay = (val.body.time_interval as IEndDateTimeInterval).end_date_time;
 
             const lastItem = this.srpeXData.length - 1;
 
@@ -413,7 +413,7 @@ export class UserStatistics  {
     }
 
     /* Make sure input array is sorted */
-    this.illnessData = this.illnessData.sort((a: IDataPoint<Illness>, b: IDataPoint<Illness>) =>
+    this.illnessData = this.illnessData.sort((a: IDataPoint<IIllness>, b: IDataPoint<IIllness>) =>
       dateCmp(a.body.date_time, b.body.date_time ));
 
     const last = this.illnessData.length - 1;

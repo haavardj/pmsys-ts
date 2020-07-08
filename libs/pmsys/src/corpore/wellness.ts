@@ -2,19 +2,10 @@ import {
     IDurationUnitValue,
     DurationUnitValue,
     ITimeFrame,
-    CurrentDateTimeFrame,
-    ISchemaID,
     SchemaID,
-    SchemaVersion,
-    IHeader,
-    PMSYS_2_0_PROVENANCE,
-    IDataPoint } from '../omh';
+    SchemaVersion
+    } from '../omh';
 
-import { UUID } from 'angular2-uuid';
-
-
-import * as moment_ from 'moment';
-const moment = moment_;
 
 
 export interface ISleep {
@@ -25,14 +16,6 @@ export interface ISleep {
 export class EmptySleep implements ISleep {
     duration = new DurationUnitValue(0, 'min');
     quality = 0;
-}
-
-export class Sleep implements ISleep {
-    constructor(public duration: DurationUnitValue, public quality: number) {}
-
-    static fromBasicValues( durationInMinutes: number, quality: number ) {
-        return new Sleep( new DurationUnitValue(durationInMinutes, 'min'), quality);
-    }
 }
 
 export const WELLNESS_1_0_SCHEMA = new SchemaID('corporesano', 'wellness', new SchemaVersion(1, 0));
@@ -71,37 +54,6 @@ export interface IWellness {
     mood: number;
 }
 
-export class Wellness implements IWellness {
-    constructor(
-        public effective_time_frame: ITimeFrame,
-        public readiness: number,
-        public fatigue: number,
-        public sleep: ISleep,
-        public soreness: number,
-        public soreness_area: number[],
-        public stress: number,
-        public mood: number) {}
-
-
-        static fromBasicValues (
-            date: Date,
-            readiness: number,
-            fatigue: number,
-            sleepQuality: number,
-            sleepMinutes: number,
-            soreness: number,
-            soreness_area: number[],
-            stress: number,
-            mood: number): Wellness {
-
-                return new Wellness(
-                    new CurrentDateTimeFrame(),
-                    readiness,
-                    fatigue,
-                    Sleep.fromBasicValues(sleepMinutes, sleepQuality),
-                    soreness, soreness_area, stress, mood );
-            }
-}
 
 export function isWellness(t: any): t is IWellness {
     const i = t as IWellness;
@@ -115,23 +67,4 @@ export function isWellness(t: any): t is IWellness {
     return true;
 }
 
-class WellnessHeader implements IHeader {
-    id = UUID.UUID();
-    creation_date_time = moment.tz(moment.tz.guess()).toDate();
-    schema_id: ISchemaID =  WELLNESS_1_0_SCHEMA;
-    acquisition_provenance = PMSYS_2_0_PROVENANCE;
 
-    constructor(public user_id: string) {}
-}
-
-
-export class WellnessDataPoint implements IDataPoint<IWellness> {
-
-    public header: IHeader;
-    public body: IWellness;
-
-    constructor(user_id: string, body: IWellness) {
-        this.header = new WellnessHeader(user_id);
-        this.body = body;
-    }
-}

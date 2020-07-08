@@ -1,17 +1,9 @@
-import * as moment_ from 'moment';
-const moment = moment_;
-
-import { UUID } from 'angular2-uuid';
 
 import {
-    IDataPoint,
     ITimeFrame,
-    CurrentDateTimeFrame,
     ISchemaID,
     SchemaID,
-    SchemaVersion,
-    IHeader,
-    PMSYS_2_0_PROVENANCE
+    SchemaVersion
 } from '../omh/index';
 
 export const ValidBodyParts = [
@@ -49,34 +41,11 @@ export const ValidSeverities = [
 
 const INJURY_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'injury', new SchemaVersion(1, 0));
 
-class PMSYSInjuryHeader implements IHeader {
-    id = UUID.UUID();
-    creation_date_time = moment.tz(moment.tz.guess()).toDate();
-    schema_id: ISchemaID = INJURY_1_0_SCHEMA;
-    acquisition_provenance = PMSYS_2_0_PROVENANCE;
-
-    constructor(public user_id: string) {}
-}
-
 export interface IInjury {
     effective_time_frame: ITimeFrame;
 
     injuries: { [body_part: string]: string };
     comment: string;
-}
-
-export class Injury implements IInjury {
-    static fromBasicValues (
-        injuries: {},
-        comment: string) {
-        return new Injury(new CurrentDateTimeFrame(), injuries, comment);
-    }
-
-    constructor(
-        public effective_time_frame: ITimeFrame,
-        public injuries: {},
-        public comment: string
-    ) {}
 }
 
 export function isInjury(t: any): t is IInjury {
@@ -87,22 +56,3 @@ export function isInjury(t: any): t is IInjury {
     return true;
 }
 
-class InjuryHeader implements IHeader {
-    id = UUID.UUID();
-    creation_date_time = moment.tz(moment.tz.guess()).toDate();
-    schema_id: ISchemaID =  INJURY_1_0_SCHEMA;
-    acquisition_provenance = PMSYS_2_0_PROVENANCE;
-
-    constructor(public user_id: string) {}
-}
-
-export class InjuryDataPoint implements IDataPoint<IInjury> {
-
-    header: IHeader;
-    body: IInjury;
-
-    constructor(user_id: string, body: IInjury) {
-        this.header = new InjuryHeader(user_id);
-        this.body = body;
-    }
-}

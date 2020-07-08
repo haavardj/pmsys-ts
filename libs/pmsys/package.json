@@ -22,8 +22,7 @@
   "peerDependencies": {
     "lodash": "^4.17.4",
     "moment": "^2.26.0",
-    "moment-timezone": "^0.5.31",
-    "angular2-uuid": "^1.1.1"
+    "moment-timezone": "^0.5.31"
   },
   "ngPackage": {
     "lib": {

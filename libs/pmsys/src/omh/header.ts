@@ -6,23 +6,23 @@ export type Modality = 'sensed' | 'self-reported';
 
 export interface IAcquisitionProvenance {
     source_name: string;
-    source_creation_date_time: Date;
+    source_creation_date_time: string;
     modality: Modality;
 }
 
 export class AcquisitionProvenance implements IAcquisitionProvenance {
-    constructor(public source_name: string, public source_creation_date_time: Date, public modality: Modality) {}
+    constructor(public source_name: string, public source_creation_date_time: string, public modality: Modality) {}
 }
 
 export const PMSYS_2_0_PROVENANCE = new AcquisitionProvenance(
     'PMSYS-2-0',
-    moment.tz(moment.tz.guess()).toDate(),
+    moment.tz(moment.tz.guess()).toISOString(),
     'self-reported');
 
 
 export interface IHeaderV1 {
     id: string;
-    creation_date_time: Date;
+    creation_date_time: string;
     schema_id: ISchemaID;
     acquisition_provenance?: IAcquisitionProvenance;
     user_id: string;
@@ -30,6 +30,6 @@ export interface IHeaderV1 {
 
 export interface IHeader extends IHeaderV1{
 
-  modified_date_time?: Date;
-  effective_date_time?: Date;
+  modified_date_time?: string;
+  effective_date_time?: string;
 }

@@ -4,23 +4,23 @@ export type TimeUnit = 'ps' | 'ns' | 'us' | 'ms' | 'sec' | 'min' | 'h' | 'd' | '
 export type PartOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
 export interface ITimeFrame {
-    date_time?: Date;
+    date_time?: string;
     time_interval?: TimeInterval;
 }
 
 export class EmptyTimeFrame implements ITimeFrame {
-    date_time = new Date();
+    date_time = '';
 }
 
 export class CurrentDateTimeFrame implements ITimeFrame {
-    date_time = new Date();
+    date_time = '';
 }
 
 
 export class DateTimeFrame implements ITimeFrame {
-    date_time: Date;
+    date_time: string;
 
-    constructor(date_time: Date) {
+    constructor(date_time: string) {
         this.date_time = date_time;
     }
 }
@@ -41,32 +41,32 @@ export class DurationUnitValue implements IDurationUnitValue {
 }
 
 export interface IEndDateTimeInterval {
-    end_date_time: Date;
+    end_date_time: string;
     duration: IDurationUnitValue;
 }
 
 export class EndDateTimeInterval implements IEndDateTimeInterval {
-    public end_date_time: Date;
+    public end_date_time: string;
     public duration: IDurationUnitValue;
 
-    constructor(date: Date, duration: IDurationUnitValue) {
+    constructor(date: string, duration: IDurationUnitValue) {
         this.end_date_time = date;
         this.duration = duration;
     }
 }
 
 export interface IStartDateTimeInterval {
-    start_date_time: Date;
+    start_date_time: string;
     duration: IDurationUnitValue;
 }
 
 export interface IStartAndEndDateTimeInterval {
-    start_date_time: Date;
-    end_date_time: Date;
+    start_date_time: string;
+    end_date_time: string;
 }
 
 export interface IPartOfDayTimeInterval {
-    date: Date;
+    date: string;
     part_of_day: PartOfDay;
 }
 
@@ -154,16 +154,16 @@ export function toDurationInputArg2(unit: TimeUnit): moment.DurationInputArg2 {
  *
  * Throws an error for part-of-day interval objects.
  */
-export function endDateTimeFromTimeInterval(t: TimeInterval): Date {
+export function endDateTimeFromTimeInterval(t: TimeInterval): string {
 
     if (isEndDateTimeInterval(t)) {
         return t.end_date_time;
 
     } else if (isStartDateTimeInterval(t)) {
         const num: number = durationUnitValueToSeconds(t.duration);
-        const t2 = t.start_date_time;
+        const t2 = new Date(t.start_date_time);
         t2.setSeconds(t2.getSeconds() + num);
-        return t2;
+        return t2.toISOString();
 
     } else if (isStartAndEndDateTimeInterval(t)) {
         return t.end_date_time;
