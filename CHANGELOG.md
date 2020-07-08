@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://github.com/haavardj/pmsys-ts/compare/v0.9.5...v0.10.0) (2020-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* From this version all dates are represented as strings. This makes handling data from persistent
+storage and remote servers consistent. It is also what the OMH standard suggest.
+
+This version also removes all object factory methods. Creating objects require application specific
+data (e.g., dates and ids) and is better done there.
+
+* change all dates to strings and delete all factory methods ([a5bb609](https://github.com/haavardj/pmsys-ts/commit/a5bb609c77f5b27170f4996e3f8c3301e202aab0))
+
 ### [0.9.5](https://github.com/haavardj/pmsys-ts/compare/v0.9.4...v0.9.5) (2020-07-06)
 
 
