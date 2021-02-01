@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.2](https://github.com/haavardj/pmsys-ts/compare/v0.10.1...v0.10.2) (2021-02-01)
+
+
+### Features
+
+* add IDataPoint type guards ([83177a4](https://github.com/haavardj/pmsys-ts/commit/83177a4fb55c70b88fd7dbad2b717ff1677184df))
+
 ### [0.10.1](https://github.com/haavardj/pmsys-ts/compare/v0.10.0...v0.10.1) (2020-07-08)
 
 
