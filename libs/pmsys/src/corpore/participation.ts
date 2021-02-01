@@ -1,9 +1,10 @@
 import {
-    ITimeFrame,
-    ISchemaID,
-    SchemaID,
-    SchemaVersion,
-} from '../omh/index';
+  ITimeFrame,
+  ISchemaID,
+  SchemaID,
+  SchemaVersion, IDataPoint,
+} from '../omh';
+
 
 export const PARTICIPATION_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'participation', new SchemaVersion(1, 0));
 
@@ -15,11 +16,16 @@ export interface IParticipation {
 
 
 export function isParticipation(t: any): t is IParticipation {
-    const i = t as IParticipation;
-    if (i.effective_time_frame === undefined) { return false; }
-    if (i.going === undefined) { return false; }
-    if (i.comment === undefined) { return false; }
+
+    if (!('effective_time_frame' in t)) { return false; }
+    if ( typeof t.going !== 'string') { return false; }
+    if ( typeof t.comment !== 'string') { return false; }
     return true;
 }
 
-
+export function isCoroneCheckDatapoint(val: IDataPoint<unknown>): val is IDataPoint<IParticipation> {
+  if (val.header.schema_id.namespace !== PARTICIPATION_1_0_SCHEMA.namespace) {return false;}
+  if (val.header.schema_id.name !== PARTICIPATION_1_0_SCHEMA.name) {return false;}
+  if (! isParticipation(val.body)) {return false;}
+  return true
+}

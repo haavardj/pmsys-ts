@@ -1,10 +1,9 @@
-
 import {
-    ITimeFrame,
-    ISchemaID,
-    SchemaID,
-    SchemaVersion
-} from '../omh/index';
+  ITimeFrame,
+  ISchemaID,
+  SchemaID,
+  SchemaVersion, IDataPoint
+} from '../omh';
 
 export const ValidBodyParts = [
     'head_neck',
@@ -49,10 +48,15 @@ export interface IInjury {
 }
 
 export function isInjury(t: any): t is IInjury {
-    const i = t as IInjury;
-    if (i.effective_time_frame === undefined) { return false; }
-    if (i.injuries === undefined) { return false; }
-    if (i.comment === undefined) { return false; }
+    if (!('effective_time_frame' in t)) { return false; }
+    if (!('injuries' in t)) { return false; }
+    if ( typeof t.comment !== 'string') { return false; }
     return true;
 }
 
+export function isInjuryDatapoint(val: IDataPoint<unknown>): val is IDataPoint<IInjury> {
+  if (val.header.schema_id.namespace !== INJURY_1_0_SCHEMA.namespace) {return false;}
+  if (val.header.schema_id.name !== INJURY_1_0_SCHEMA.name) {return false;}
+  if (! isInjury(val.body)) {return false;}
+  return true
+}

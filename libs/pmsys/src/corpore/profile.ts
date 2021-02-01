@@ -11,7 +11,6 @@ export interface IProfile {
     email: string;
 }
 
-
 export class EmptyProfile implements IProfile {
     given_name = '';
     family_name = '';

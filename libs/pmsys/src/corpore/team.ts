@@ -18,18 +18,17 @@ export interface ITeam extends ITeamShort {
 }
 
 export function isTeamShort(t: any): t is ITeamShort {
-    const i = t as ITeam;
-    if (i.name === undefined) {return false; }
-    if (i.id === undefined) {return false; }
+
+    if (typeof t.name !== 'string') {return false; }
+    if (typeof t.id !== 'string') {return false; }
     return true;
 }
 
 export function isTeam(t: any): t is ITeam {
-    const i = t as ITeam;
 
     if (isTeamShort(t) === false) {return false; }
-    if (i.players === undefined) {return false; }
-    if (i.coaches === undefined) {return false; }
+    if (!('players' in t)) {return false; }
+    if (!('coaches' in t)) {return false; }
     return true;
 }
 
