@@ -1,11 +1,10 @@
 import {
-    IDurationUnitValue,
-    DurationUnitValue,
-    ITimeFrame,
-    SchemaID,
-    SchemaVersion
-    } from '../omh';
-
+  IDurationUnitValue,
+  DurationUnitValue,
+  ITimeFrame,
+  SchemaID,
+  SchemaVersion, IDataPoint
+} from '../omh';
 
 
 export interface ISleep {
@@ -32,39 +31,31 @@ export interface IWellness_1_0 {
     mood: number;
 }
 
-export interface IWellness_1_1 {
-    effective_time_frame: ITimeFrame;
-    readiness: number;
-    fatigue: number;
-    sleep: ISleep;
-    soreness: number;
+export interface IWellness_1_1 extends IWellness_1_0{
     soreness_area: number[];
-    stress: number;
-    mood: number;
 }
 
-export interface IWellness {
-    effective_time_frame: ITimeFrame;
-    readiness: number;
-    fatigue: number;
-    sleep: ISleep;
-    soreness: number;
-    soreness_area: number[];
-    stress: number;
-    mood: number;
-}
+export interface IWellness extends IWellness_1_1 {}
 
 
 export function isWellness(t: any): t is IWellness {
-    const i = t as IWellness;
-    if (i.effective_time_frame === undefined) { return false; }
-    if (i.readiness === undefined) { return false; }
-    if (i.fatigue === undefined) { return false; }
-    if (i.sleep === undefined) { return false; }
-    if (i.soreness === undefined) { return false; }
-    if (i.stress === undefined) { return false; }
-    if (i.mood === undefined) { return false; }
+    if (!('effective_time_frame' in t)) { return false; }
+    if (typeof t.readiness !== 'number') { return false; }
+    if (typeof t.fatigue !== 'number') { return false; }
+    if (!('sleep' in t)) { return false; }
+    if (typeof t.soreness === 'number') { return false; }
+    if (!('sorness_area' in t)) { return false; }
+    if (typeof t.stress !== 'number') { return false; }
+    if (typeof t.mood !== 'number') { return false; }
     return true;
 }
+
+export function isWellnessDatapoint(val: IDataPoint<unknown>): val is IDataPoint<IWellness> {
+  if (val.header.schema_id.namespace !== WELLNESS_1_1_SCHEMA.namespace) {return false;}
+  if (val.header.schema_id.name !== WELLNESS_1_1_SCHEMA.name) {return false;}
+  if (! isWellness(val.body)) {return false;}
+  return true
+}
+
 
 

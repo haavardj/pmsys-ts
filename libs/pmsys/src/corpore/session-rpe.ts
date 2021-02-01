@@ -1,6 +1,4 @@
-import * as moment_ from 'moment';
-const moment = moment_;
-
+import * as moment from 'moment';
 
 import {
     IDataPoint,
@@ -15,7 +13,7 @@ import {
     ISchemaID,
     SchemaID,
     SchemaVersion,
-} from '../omh/index';
+} from '../omh';
 
 export const SESSION_RPE_1_0_SCHEMA: ISchemaID = new SchemaID('corporesano', 'srpe', new SchemaVersion(1, 0));
 
@@ -23,6 +21,13 @@ export interface ISessionRPE {
   activity_names: string[];
   time_interval: TimeInterval;
   perceived_exertion: number;
+}
+
+export function isSessionRPE(t: any): t is ISessionRPE {
+  if ( !('activity_names' in t)) { return false; }
+  if ( !('time_interval' in t)) { return false; }
+  if ( typeof t.perceived_exertion !== 'number') { return false; }
+  return true;
 }
 
 export class EmptyEndDateTimeSessionRPE implements ISessionRPE {
@@ -57,12 +62,11 @@ export function computeSessionRPE(val: IDataPoint<ISessionRPE>): number {
 }
 
 
-export function isSessionRPE(t: any): t is ISessionRPE {
-    const i = t as ISessionRPE;
-    if (i.activity_names === undefined) { return false; }
-    if (i.time_interval === undefined) { return false; }
-    if (i.perceived_exertion === undefined) { return false; }
-    return true;
-}
+export function isSessionRPEDatapoint(val: IDataPoint<unknown>): val is IDataPoint<ISessionRPE> {
 
+  if (val.header.schema_id.namespace !== SESSION_RPE_1_0_SCHEMA.namespace) {return false;}
+  if (val.header.schema_id.name !== SESSION_RPE_1_0_SCHEMA.name) {return false;}
+  if (! isSessionRPE(val.body)) {return false;}
+  return true
+}
 

@@ -72,27 +72,43 @@ export interface IPartOfDayTimeInterval {
 
 export type TimeInterval = IEndDateTimeInterval | IStartDateTimeInterval | IStartAndEndDateTimeInterval | IPartOfDayTimeInterval;
 
-export function isEndDateTimeInterval(t: TimeInterval): t is IEndDateTimeInterval {
-    if (t == null) { return null; }
+export function isDurationUnitValue(t: any): t is IDurationUnitValue {
 
-    return (<IEndDateTimeInterval>t).end_date_time !== undefined && (<IEndDateTimeInterval>t).duration !== undefined;
+  if (!t) {return false;}
+  if (typeof t.value !== 'number') { return false;}
+  if (typeof t.unit !== 'string') { return false;}
+  return true;
+}
+
+
+export function isEndDateTimeInterval(t: TimeInterval): t is IEndDateTimeInterval {
+    if (!t) { return false; }
+    if (!('end_date_time' in t)) { return false;}
+    if (!('duration' in t)) { return false;}
+    return true;
 }
 
 export function isStartDateTimeInterval(t: TimeInterval): t is IStartDateTimeInterval {
-    if (t == null) { return null; }
-    return (<IStartDateTimeInterval>t).start_date_time !== undefined && (<IStartDateTimeInterval>t).duration !== undefined;
+
+  if (!t) {return false;}
+  if ( !('start_date_time' in t)) {return false;}
+  if ( !('duration' in t)) {return false;}
+  return true;
 }
 
 export function isStartAndEndDateTimeInterval(t: TimeInterval): t is IStartAndEndDateTimeInterval {
-    if (t == null) { return null; }
-    return (<IStartAndEndDateTimeInterval>t).start_date_time !== undefined && (<IStartAndEndDateTimeInterval>t).end_date_time !== undefined;
+
+  if (!t) {return false;}
+  if ( !('start_date_time' in t)) {return false;}
+  if ( !('end_date_time' in t)) {return false;}
+  return true;
 }
 
 export function isPartOfDayTimeInterval(t: TimeInterval): t is IPartOfDayTimeInterval {
-    if (t == null) { return null; }
-    return (<IPartOfDayTimeInterval>t).part_of_day !== undefined;
+    if (!t) {return false;}
+    if ( !('date' in t)) {return false;}
+    if ( !('part_of_day' in t)) {return false;}
 }
-
 
 export function durationUnitValueToSeconds(a: IDurationUnitValue): number {
 
@@ -156,21 +172,47 @@ export function toDurationInputArg2(unit: TimeUnit): moment.DurationInputArg2 {
  */
 export function endDateTimeFromTimeInterval(t: TimeInterval): string {
 
-    if (isEndDateTimeInterval(t)) {
-        return t.end_date_time;
+  if (isEndDateTimeInterval(t)) {
+    return t.end_date_time;
+  }
 
-    } else if (isStartDateTimeInterval(t)) {
-        const num: number = durationUnitValueToSeconds(t.duration);
-        const t2 = new Date(t.start_date_time);
-        t2.setSeconds(t2.getSeconds() + num);
-        return t2.toISOString();
+  if (isStartDateTimeInterval(t)) {
+    const num: number = durationUnitValueToSeconds(t.duration);
+    const t2 = new Date(t.start_date_time);
+    t2.setSeconds(t2.getSeconds() + num);
+    return t2.toISOString();
+  }
 
-    } else if (isStartAndEndDateTimeInterval(t)) {
-        return t.end_date_time;
+  if (isStartAndEndDateTimeInterval(t)) {
+    return t.end_date_time;
+  }
 
-    } else if (isPartOfDayTimeInterval(t)) {
-        throw new Error('Part-of-Day TimeIntervals are not supported');
-    } else {
-        throw new Error('Unsupported time interval type ' + t);
- }
+  if (isPartOfDayTimeInterval(t)) {
+    throw new Error('Part-of-Day TimeIntervals are not supported');
+  } else {
+    throw new Error('Unsupported time interval type ' + t);
+  }
+}
+
+export function durationFromTimeInterval(t: TimeInterval): IDurationUnitValue {
+
+  if (isEndDateTimeInterval(t)){
+    return t.duration;
+  }
+
+  if (isStartDateTimeInterval(t)){
+    return t.duration;
+  }
+
+  if (isStartAndEndDateTimeInterval(t)){
+    const val = moment(t.end_date_time).subtract(t.start_date_time).seconds();
+    return  new DurationUnitValue(val, 'sec');
+  }
+
+  if (isPartOfDayTimeInterval(t)) {
+    throw new Error('Part-of-Day TimeIntervals are not supported');
+  } else {
+    throw new Error('Unsupported time interval type ' + t);
+  }
+
 }
