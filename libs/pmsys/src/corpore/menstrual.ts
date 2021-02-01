@@ -37,5 +37,5 @@ export function isMenstrualDatapoint(val: IDataPoint<unknown>): val is IDataPoin
   if (val.header.schema_id.namespace !== MENSTUAL_1_0_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== MENSTUAL_1_0_SCHEMA.name) {return false;}
   if (! isMenstrual(val.body)) {return false;}
-  return true
+  return true;
 }

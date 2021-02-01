@@ -108,6 +108,7 @@ export function isPartOfDayTimeInterval(t: TimeInterval): t is IPartOfDayTimeInt
     if (!t) {return false;}
     if ( !('date' in t)) {return false;}
     if ( !('part_of_day' in t)) {return false;}
+    return true;
 }
 
 export function durationUnitValueToSeconds(a: IDurationUnitValue): number {

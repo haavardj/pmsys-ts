@@ -1,4 +1,4 @@
-import { IDataPoint, IEndDateTimeInterval, durationUnitValueToSeconds } from '../omh';
+import { IDataPoint, durationUnitValueToSeconds } from '../omh';
 import { IWellness, isWellness } from './wellness';
 import { ISessionRPE, isSessionRPE } from './session-rpe';
 
@@ -15,10 +15,20 @@ import {IIllness, isIllness} from './illness';
 import {IMenstrual, isMenstrual} from './menstrual';
 import {ICoronaCheck, isCoronaCheck} from './corona-check';
 
-declare let jStat: any;
-
 export function dateCmp(a: string, b: string): number {
     return (new Date(a) > new Date(b) ? 1 : a < b ? -1 : 0);
+}
+
+export function datapointDateCmp(a: IDataPoint<unknown>, b: IDataPoint<unknown>): number {
+
+  if (!a.header.effective_date_time) {
+    return -1;
+  }
+  if (!b.header.effective_date_time) {
+    return 1;
+  }
+
+  return (new Date(a.header.effective_date_time) > new Date(b.header.effective_date_time) ? 1 : a < b ? -1 : 0);
 }
 
 
@@ -67,7 +77,7 @@ export class UserStatistics  {
     public currentLoadScore = -1;
     public currentStrainScore = -1;
 
-    public currentTrendScore: number = null;
+    public currentTrendScore: number | null = null;
 
     public participateX: string[] = [];
     public participateGoing: string[] = [];
@@ -231,17 +241,30 @@ export class UserStatistics  {
         }
 
         /* Make sure input array is sorted */
-        this.wellnessData = this.wellnessData.sort((a: IDataPoint<IWellness>, b: IDataPoint<IWellness>) =>
-            dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
+        this.wellnessData = this.wellnessData.sort((a: IDataPoint<IWellness>, b: IDataPoint<IWellness>) => {
+          return datapointDateCmp(a, b);
+        });
 
-        this.latestReport['wellness'] =  this.wellnessData[this.wellnessData.length - 1].body.effective_time_frame.date_time;
-        this.earliestReport['wellness'] = this.wellnessData[0].body.effective_time_frame.date_time;
+        if (this.wellnessData.length === 0) {
+          return;
+        }
+
+        const latest: string | undefined = this.wellnessData[this.wellnessData.length - 1].header.effective_date_time;
+        if (latest) {
+          this.latestReport['wellness'] = latest;
+        }
+
+        const earliest: string | undefined = this.wellnessData[0].header.effective_date_time;
+        if (earliest) {
+        this.earliestReport['wellness'] = earliest;
+        }
+
         for (const val of this.wellnessData) {
 
             const onDay = val.body.effective_time_frame.date_time;
-
-            /* mood */
-            const lastItem = this.moodX.length - 1;
+            if (!onDay) {
+              continue;
+            }
 
             if (val.body.mood >= 1 && val.body.mood <= 5) {
                 this.moodX.push(onDay);
@@ -288,14 +311,28 @@ export class UserStatistics  {
 
         /* Make sure input array is sorted */
         this.participationData = this.participationData.sort((a: IDataPoint<IParticipation>, b: IDataPoint<IParticipation>) =>
-            dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
+            datapointDateCmp(a, b));
 
-        this.latestReport['participation'] =  this.participationData[this.participationData.length - 1].body.effective_time_frame.date_time;
-        this.earliestReport['participation'] = this.participationData[0].body.effective_time_frame.date_time;
+        if (this.participationData.length === 0) {
+          return;
+        }
+
+        const latest: string | undefined = this.participationData[this.participationData.length - 1].header.effective_date_time;
+        if (latest) {
+          this.latestReport['participation'] = latest;
+        }
+
+        const earliest: string | undefined = this.participationData[0].header.effective_date_time;
+        if (earliest) {
+          this.earliestReport['participation'] = earliest;
+        }
+
         for (const val of this.participationData) {
 
-            const onDay = val.body.effective_time_frame.date_time;
-
+            const onDay = val.header.effective_date_time;
+            if (!onDay) {
+              continue;
+            }
             this.participateX.push(onDay);
             this.participateGoing.push(val.body.going);
             this.participateComment.push(val.body.comment);
@@ -311,18 +348,22 @@ export class UserStatistics  {
 
         /* Make sure input array is sorted */
         this.injuryData = this.injuryData.sort((a: IDataPoint<IInjury>, b: IDataPoint<IInjury>) =>
-            dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time ));
+            datapointDateCmp(a, b));
 
-        const last = this.injuryData.length - 1;
-
-        if (last < 0) {
-            return;
+        if (this.injuryData.length === 0) {
+          return;
         }
 
-        this.latestReport['injury'] = this.injuryData[last].body.effective_time_frame.date_time;
-        this.earliestReport['injury'] = this.injuryData[0].body.effective_time_frame.date_time;
+        const last: string | undefined = this.injuryData[this.injuryData.length - 1].header.effective_date_time;
+        if (last) {
+          this.latestReport['injury'] = last;
+        }
 
-        this.lastInjury = this.injuryData[last].body;
+        const earliest: string | undefined = this.injuryData[0].header.effective_date_time;
+        if (earliest) {
+          this.earliestReport['injury'] = earliest;
+        }
+        this.lastInjury = this.injuryData[this.injuryData.length -1 ].body;
     }
 
     /*
@@ -335,29 +376,36 @@ export class UserStatistics  {
                 return;
         }
 
-        const idata: number[] = [];
 
         /* Make sure input array is sorted */
-        this.srpeData = this.srpeData.sort(
-                (a: IDataPoint<ISessionRPE>,
-                 b: IDataPoint<ISessionRPE>) => dateCmp((a.body.time_interval as IEndDateTimeInterval).end_date_time,
-                (b.body.time_interval as IEndDateTimeInterval).end_date_time));
+        this.srpeData = this.srpeData.sort((a: IDataPoint<ISessionRPE>, b: IDataPoint<ISessionRPE>) =>
+          datapointDateCmp(a, b))
 
-        this.latestReport['srpe'] =  (this.srpeData[this.srpeData.length - 1].body.time_interval as IEndDateTimeInterval).end_date_time;
-        // this.latestReport['srpe'] = this.latestReport['srpe'] > onDay ? this.latestReport['srpe']: onDay;
-        // this.earliestReport['srpe'] = this.earliestReport['srpe'] < onDay ? this.earliestReport['srpe']: onDay;
-        this.earliestReport['srpe'] = (this.srpeData[0].body.time_interval as IEndDateTimeInterval).end_date_time;
+        const latest: string | undefined = this.srpeData[this.srpeData.length - 1].header.effective_date_time;
+
+        if (latest){
+          this.latestReport['srpe'] = latest;
+        }
+
+        const earliest: string | undefined = this.srpeData[0].header.effective_date_time;
+
+        if (earliest) {
+          this.earliestReport['srpe'] = earliest;
+
+        }
+
+
 
         for (const val of  this.srpeData) {
 
-            const onDay = (val.body.time_interval as IEndDateTimeInterval).end_date_time;
-
-            const lastItem = this.srpeXData.length - 1;
+            const onDay = val.header.effective_date_time;
+            if (!onDay) {
+              continue;
+            }
 
             this.srpeXData.push(onDay);
             this.srpeYData.push( computeSessionRPE(val) );
             this.exertion.push( val.body.perceived_exertion );
-            idata.push(1);
         }
     }
 
@@ -371,16 +419,18 @@ export class UserStatistics  {
 
       /* Make sure input array is sorted */
       this.menstrualData = this.menstrualData.sort((a: IDataPoint<IMenstrual>, b: IDataPoint<IMenstrual>) =>
-        dateCmp(a.body.time_frame.date_time, b.body.time_frame.date_time ));
+        datapointDateCmp(a, b));
 
-      const last = this.menstrualData.length - 1;
+      const last: string | undefined = this.menstrualData[this.menstrualData.length - 1].header.effective_date_time;
 
-      if (last < 0) {
-        return;
+      if (last) {
+        this.latestReport['menstrual'] = last;
       }
 
-      this.latestReport['menstrual'] = this.menstrualData[last].body.time_frame.date_time;
-      this.earliestReport['menstrual'] = this.menstrualData[0].body.time_frame.date_time;
+      const earliest: string | undefined = this.menstrualData[0].header.effective_date_time;
+      if (earliest) {
+        this.earliestReport['menstrual'] = earliest;
+      }
     }
 
 
@@ -393,16 +443,19 @@ export class UserStatistics  {
 
     /* Make sure input array is sorted */
     this.coronaCheckData = this.coronaCheckData.sort((a: IDataPoint<ICoronaCheck>, b: IDataPoint<ICoronaCheck>) =>
-      dateCmp(a.body.date_time, b.body.date_time ));
+      datapointDateCmp(a, b));
 
-    const last = this.coronaCheckData.length - 1;
+    const last: string | undefined = this.coronaCheckData[this.coronaCheckData.length - 1].header.effective_date_time;
 
-    if (last < 0) {
-      return;
+    if (last) {
+      this.latestReport['corona-check'] = last;
     }
 
-    this.latestReport['corona-check'] = this.coronaCheckData[last].body.date_time;
-    this.earliestReport['corona-check'] = this.coronaCheckData[0].body.date_time;
+    const earliest: string | undefined = this.coronaCheckData[this.coronaCheckData.length -1].header.effective_date_time;
+    if (earliest){
+      this.earliestReport['corona-check'] = earliest;
+    }
+
   }
 
   private computeIllnessData(): void {
@@ -414,16 +467,17 @@ export class UserStatistics  {
 
     /* Make sure input array is sorted */
     this.illnessData = this.illnessData.sort((a: IDataPoint<IIllness>, b: IDataPoint<IIllness>) =>
-      dateCmp(a.body.date_time, b.body.date_time ));
+      datapointDateCmp(a, b));
 
-    const last = this.illnessData.length - 1;
-
-    if (last < 0) {
-      return;
+    const last: string | undefined = this.illnessData[this.illnessData.length -1].header.effective_date_time
+    if (last) {
+      this.latestReport['illness'] = last;
     }
 
-    this.latestReport['illness'] = this.illnessData[last].body.date_time;
-    this.earliestReport['illness'] = this.illnessData[0].body.date_time;
+    const earliest: string | undefined = this.illnessData[0].header.effective_date_time;
+    if (earliest) {
+      this.earliestReport['illness'] = earliest;
+    }
   }
 
   private computeGamePerfornamceData(): void {
@@ -435,18 +489,20 @@ export class UserStatistics  {
 
     /* Make sure input array is sorted */
     this.gamePerformanceData = this.gamePerformanceData.sort((a: IDataPoint<IGamePerformance>, b: IDataPoint<IGamePerformance>) =>
-      dateCmp(a.body.date_time, b.body.date_time ));
+      datapointDateCmp(a, b));
 
-    const last = this.gamePerformanceData.length - 1;
 
-    if (last < 0) {
+    const last: string | undefined = this.gamePerformanceData[this.gamePerformanceData.length - 1].header.effective_date_time;
+    if (last) {
+      this.latestReport['gamePerformance'] = last;
       return;
     }
 
-    this.latestReport['gamePerformance'] = this.gamePerformanceData[last].body.date_time;
-    this.earliestReport['gamePerformance'] = this.gamePerformanceData[0].body.date_time;
+    const earliest: string | undefined = this.gamePerformanceData[0].header.effective_date_time;
+    if (earliest) {
+      this.earliestReport['gamePerformance'] = earliest;
+    }
   }
-
 }
 
 

@@ -58,5 +58,5 @@ export function isInjuryDatapoint(val: IDataPoint<unknown>): val is IDataPoint<I
   if (val.header.schema_id.namespace !== INJURY_1_0_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== INJURY_1_0_SCHEMA.name) {return false;}
   if (! isInjury(val.body)) {return false;}
-  return true
+  return true;
 }

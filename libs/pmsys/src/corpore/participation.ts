@@ -23,9 +23,9 @@ export function isParticipation(t: any): t is IParticipation {
     return true;
 }
 
-export function isCoroneCheckDatapoint(val: IDataPoint<unknown>): val is IDataPoint<IParticipation> {
+export function isParticipationDatapoint(val: IDataPoint<unknown>): val is IDataPoint<IParticipation> {
   if (val.header.schema_id.namespace !== PARTICIPATION_1_0_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== PARTICIPATION_1_0_SCHEMA.name) {return false;}
   if (! isParticipation(val.body)) {return false;}
-  return true
+  return true;
 }

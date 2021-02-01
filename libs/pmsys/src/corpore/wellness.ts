@@ -54,7 +54,7 @@ export function isWellnessDatapoint(val: IDataPoint<unknown>): val is IDataPoint
   if (val.header.schema_id.namespace !== WELLNESS_1_1_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== WELLNESS_1_1_SCHEMA.name) {return false;}
   if (! isWellness(val.body)) {return false;}
-  return true
+  return true;
 }
 
 

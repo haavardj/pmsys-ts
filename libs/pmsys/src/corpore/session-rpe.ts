@@ -67,6 +67,6 @@ export function isSessionRPEDatapoint(val: IDataPoint<unknown>): val is IDataPoi
   if (val.header.schema_id.namespace !== SESSION_RPE_1_0_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== SESSION_RPE_1_0_SCHEMA.name) {return false;}
   if (! isSessionRPE(val.body)) {return false;}
-  return true
+  return true;
 }
 

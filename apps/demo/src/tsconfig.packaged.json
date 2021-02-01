@@ -6,5 +6,8 @@
   "include": [
     "**/*.ts"
   ],
+  "paths": {
+    "pmsys": ["../../../dist/libs/pmsys"]
+  }
 }
 

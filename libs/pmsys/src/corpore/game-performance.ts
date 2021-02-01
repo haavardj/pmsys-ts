@@ -28,5 +28,5 @@ export function isGamePerformanceDatapoint(val: IDataPoint<unknown>): val is IDa
   if (val.header.schema_id.namespace !== GAME_PERFORMANCE_1_0_SCHEMA.namespace) {return false;}
   if (val.header.schema_id.name !== GAME_PERFORMANCE_1_0_SCHEMA.name) {return false;}
   if (! isGamePerformance(val.body)) {return false;}
-  return true
+  return true;
 }
