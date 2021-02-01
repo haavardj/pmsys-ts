@@ -2,8 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
-    "target": "es2015",
-    "module": "es2015",
+    "declarationMap": true,
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
@@ -12,11 +11,6 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "types": [],
-    "lib": [
-      "dom",
-      "es2015"
-    ]
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

@@ -20,7 +20,6 @@
     "url": "https://github.com/haavardj/pmsys-ts.git/issues"
   },
   "peerDependencies": {
-    "lodash": "^4.17.4",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31"
   },
