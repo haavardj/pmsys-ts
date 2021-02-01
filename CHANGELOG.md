@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.3](https://github.com/haavardj/pmsys-ts/compare/v0.10.2...v0.10.3) (2021-02-01)
+
+
+### Bug Fixes
+
+* strict type check errors ([6b549a1](https://github.com/haavardj/pmsys-ts/commit/6b549a1c8eabef7d0685275cdb4f0f0911c226a8))
+
 ### [0.10.2](https://github.com/haavardj/pmsys-ts/compare/v0.10.1...v0.10.2) (2021-02-01)
 
 
